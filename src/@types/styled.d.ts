@@ -1,9 +1,8 @@
 import 'styled-components';
-import { baseColors, brandColors } from '../styles/themes/default';
+import { defaultTheme } from '../styles/themes/default';
 
-type BrandColorsType = typeof brandColors;
-type BaseColorsType = typeof baseColors;
+type DefaultThemeType = typeof defaultTheme;
 
 declare module 'styled-components' {
-  export interface DefaultTheme extends BrandColorsType, BaseColorsType {}
+  export interface DefaultTheme extends DefaultThemeType { }
 }
