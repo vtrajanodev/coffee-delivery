@@ -22,19 +22,18 @@ export const IntroTextContainer = styled.div`
     color: ${props => props.theme["base-subtitle"]};
     font-family: 'Roboto', sans-serif;
   }
+`
+export const BenefitsContainer = styled.div`
+  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+`
 
-  div.benefits {
-    margin-top: 3rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-
-    div {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-  }
+export const BenefitsData = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 `
 
 export const IntroImgContainer = styled.div`
