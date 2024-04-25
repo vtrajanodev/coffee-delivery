@@ -4,6 +4,7 @@ export const HeaderContainer = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: 6.5rem;
 `
 
 export const NavContainer = styled.nav`
