@@ -10,9 +10,11 @@ interface CoffeeCardProps {
   coffee: Coffee
 }
 
+
 export const CoffeeCard = ({ coffee }: CoffeeCardProps) => {
 
-  const { handleAddCoffeeToCart } = useContext(CartContext)
+  const { handleAddCoffeeToCart, isCoffeeOnCart } = useContext(CartContext)
+  const isDisabled = coffee.quantity === 0 || isCoffeeOnCart(coffee)
 
   return (
     <CoffeeCardContainer>
@@ -27,11 +29,11 @@ export const CoffeeCard = ({ coffee }: CoffeeCardProps) => {
       <h2>{coffee.name}</h2>
       <p>{coffee.description}</p>
 
-      <CoffeeCardFooterContainer>
+      <CoffeeCardFooterContainer $isCoffeeOnCart={(isCoffeeOnCart(coffee))}>
         <Price price={coffee.price} />
         <div>
           <Count coffee={coffee} />
-          <button onClick={() => handleAddCoffeeToCart(coffee)}>
+          <button disabled={isDisabled} onClick={() => handleAddCoffeeToCart(coffee)}>
             <img src={shoppingCartSimple} alt="" />
           </button>
         </div>

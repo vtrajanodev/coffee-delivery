@@ -10,6 +10,7 @@ interface CartContextProviderProps {
 interface CartContextProps {
   cart: Cart
   handleAddCoffeeToCart: (coffee: Coffee) => void
+  isCoffeeOnCart: (coffee: Coffee) => boolean
 }
 
 export const CartContext = createContext({} as CartContextProps)
@@ -27,19 +28,24 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
     console.log(cart)
   }, [cart])
 
+  const isCoffeeOnCart = (coffee: Coffee) => {
+    return !!cart.items.find((item) => item.id === coffee.id)
+  }
+
   const handleAddCoffeeToCart = (coffee: Coffee) => {
-    const isAlreadyOnCart: Coffee | undefined = cart.items.find((item) => item.id === coffee.id)
+
 
     setCart(state => ({
       ...state,
-      items: isAlreadyOnCart ? [...state.items] : [...state.items, coffee]
+      items: isCoffeeOnCart(coffee) ? [...state.items] : [...state.items, coffee]
     }))
   }
 
   return (
     <CartContext.Provider value={{
       cart,
-      handleAddCoffeeToCart
+      handleAddCoffeeToCart,
+      isCoffeeOnCart
     }}>
       {children}
     </CartContext.Provider>
