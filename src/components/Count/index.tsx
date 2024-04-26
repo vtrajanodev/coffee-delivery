@@ -20,7 +20,7 @@ export const Count = ({ coffee }: CountProps) => {
       }
     })
 
-    handleSetCoffeeList([...updatedCoffeeList])
+    handleSetCoffeeList(updatedCoffeeList)
   }
 
   const handleRemoveCoffeeQuantity = () => {
@@ -36,7 +36,7 @@ export const Count = ({ coffee }: CountProps) => {
       }
     })
 
-    handleSetCoffeeList([...updatedCoffeeList])
+    handleSetCoffeeList(updatedCoffeeList)
   }
 
   return (
