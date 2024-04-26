@@ -10,10 +10,12 @@ export const CoffeeListTitleContainer = styled.h1`
   display: block;
 `
 
-export const CoffeListContainer = styled.main`
+export const CoffeeListContainer = styled.main`
   width: 100%;
-  display: flex;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   flex-wrap: wrap;
+
+  gap: 2.5rem;
 `
 

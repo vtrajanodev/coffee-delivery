@@ -1,13 +1,26 @@
-import { PriceContainer } from "./styles"
+import { PriceContainer } from "./styles";
 
-export const Price = () => {
+interface PriceProps {
+  price: number
+}
+
+
+
+export const Price = ({ price }: PriceProps) => {
+
+  const formatNumberToCurrency = (numero: number) => {
+    return new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 4 }).format(numero);
+  }
+
+  const formattedCurrencyPrice = formatNumberToCurrency(price)
+
   return (
     <PriceContainer>
       <span>
         R$
       </span>
       <span>
-      9,90
+        {formattedCurrencyPrice}
       </span>
     </PriceContainer>
   )

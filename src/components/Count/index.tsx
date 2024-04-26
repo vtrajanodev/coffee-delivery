@@ -1,10 +1,14 @@
 import { CountContainer } from "./styles"
 
-export const Count = () => {
+interface CountProps {
+  quantity: number
+}
+
+export const Count = ({ quantity }: CountProps) => {
   return (
     <CountContainer>
       <span>-</span>
-      <span>1</span>
+      <span>{quantity}</span>
       <span>+</span>
     </CountContainer>
   )

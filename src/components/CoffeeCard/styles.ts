@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
-const Centralize = styled.div`
+interface CoffeTagsContainerProps {
+  isUniqueTag?: boolean
+}
+
+const Centralize = styled.div<CoffeTagsContainerProps>`
   display: flex;
   align-items: center;
 `
@@ -27,7 +31,6 @@ export const CoffeeCardContainer = styled(Centralize)`
     font-family: 'Baloo 2', sans-serif;
     font-weight: 700;
     font-size: 1.25rem;
-    margin-top: 0.75rem;
   }
 
   p {
@@ -42,18 +45,25 @@ export const CoffeeCardContainer = styled(Centralize)`
 
 export const CoffeeTagsContainer = styled(Centralize)`
   justify-content: center;
-
-  width: 5rem;
+  gap: ${props => props.isUniqueTag ?  '20px' : 0};
+  width: 100%;
   height: 1.3rem;
 
-  background-color: ${props => props.theme["yellow-light"]};
-  color: ${props => props.theme["yellow-dark"]};
+
+  span {
+    background-color: ${props => props.theme["yellow-light"]};
+    color: ${props => props.theme["yellow-dark"]};
+    padding: 0.30rem;
+    border-radius: 4px;
+  }
+
 
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
-  font-size: 0.625rem;
+  font-size: 0.725rem;
 
-  margin-bottom: 1.25rem;
+  margin-top: 1.25rem;
+  margin-bottom: 0.75rem;
 `
 
 export const CoffeeCardFooterContainer = styled.div`

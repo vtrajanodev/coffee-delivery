@@ -1,27 +1,42 @@
-import coffee1 from '../../assets/coffeList/coffee-1.png'
-import shoppingCartSimple from '../../assets/coffeList/ShoppingCartSimple.svg'
-import { Count } from '../Count'
-import { Price } from '../Price'
-import { CoffeeCardContainer, CoffeeCardFooterContainer, CoffeeTagsContainer } from "./styles"
+import shoppingCartSimple from '../../assets/ShoppingCartSimple.svg';
+import { Count } from '../Count';
+import { Price } from '../Price';
+import { CoffeeCardContainer, CoffeeCardFooterContainer, CoffeeTagsContainer } from "./styles";
 
-export const CoffeeCard = () => {
+interface CoffeeCardProps {
+  imgSrc: string;
+  tags: string[];
+  name: string;
+  description: string;
+  price: number;
+  quantity: number
+}
+
+export const CoffeeCard = ({ imgSrc, tags, name, description, price, quantity }: CoffeeCardProps) => {
+
+  const isUniqueTag = tags?.length >= 1
+
   return (
     <CoffeeCardContainer>
-      <img src={coffee1} alt="" />
+      <img src={imgSrc} alt="" />
 
-      <CoffeeTagsContainer>TRADICIONAL</CoffeeTagsContainer>
+      <CoffeeTagsContainer isUniqueTag={isUniqueTag}>
+        {tags?.map((tag: string) => (
+          <span key={tag}>{tag}</span>
+        ))}
+      </CoffeeTagsContainer>
 
-      <h2>Expresso Tradicional</h2>
-      <p>O tradicional café feito com água quente e grãos moídos</p>
+      <h2>{name}</h2>
+      <p>{description}</p>
 
       <CoffeeCardFooterContainer>
-        <Price />
+        <Price price={price} />
         <div>
-          <Count />
+          <Count quantity={quantity} />
           <img src={shoppingCartSimple} alt="" />
         </div>
       </CoffeeCardFooterContainer>
 
     </CoffeeCardContainer >
   )
-}
+} 
