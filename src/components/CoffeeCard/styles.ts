@@ -1,10 +1,6 @@
 import styled from "styled-components";
 
-interface CoffeTagsContainerProps {
-  isUniqueTag?: boolean
-}
-
-const Centralize = styled.div<CoffeTagsContainerProps>`
+const Centralize = styled.div`
   display: flex;
   align-items: center;
 `
@@ -45,7 +41,7 @@ export const CoffeeCardContainer = styled(Centralize)`
 
 export const CoffeeTagsContainer = styled(Centralize)`
   justify-content: center;
-  gap: ${props => props.isUniqueTag ?  '20px' : 0};
+  gap: 1.25rem;
   width: 100%;
   height: 1.3rem;
 

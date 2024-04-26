@@ -1,38 +1,32 @@
+import { Coffee } from '../../@types/coffee.type';
 import shoppingCartSimple from '../../assets/ShoppingCartSimple.svg';
 import { Count } from '../Count';
 import { Price } from '../Price';
 import { CoffeeCardContainer, CoffeeCardFooterContainer, CoffeeTagsContainer } from "./styles";
 
 interface CoffeeCardProps {
-  imgSrc: string;
-  tags: string[];
-  name: string;
-  description: string;
-  price: number;
-  quantity: number
+  coffee: Coffee
 }
 
-export const CoffeeCard = ({ imgSrc, tags, name, description, price, quantity }: CoffeeCardProps) => {
-
-  const isUniqueTag = tags?.length >= 1
+export const CoffeeCard = ({coffee }: CoffeeCardProps) => {
 
   return (
     <CoffeeCardContainer>
-      <img src={imgSrc} alt="" />
+      <img src={coffee.imgSrc} alt="" />
 
-      <CoffeeTagsContainer isUniqueTag={isUniqueTag}>
-        {tags?.map((tag: string) => (
+      <CoffeeTagsContainer>
+        {coffee.tags?.map((tag: string) => (
           <span key={tag}>{tag}</span>
         ))}
       </CoffeeTagsContainer>
 
-      <h2>{name}</h2>
-      <p>{description}</p>
+      <h2>{coffee.name}</h2>
+      <p>{coffee.description}</p>
 
       <CoffeeCardFooterContainer>
-        <Price price={price} />
+        <Price price={coffee.price} />
         <div>
-          <Count quantity={quantity} />
+          <Count coffee={coffee} />
           <img src={shoppingCartSimple} alt="" />
         </div>
       </CoffeeCardFooterContainer>

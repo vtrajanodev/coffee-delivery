@@ -4,8 +4,6 @@ interface PriceProps {
   price: number
 }
 
-
-
 export const Price = ({ price }: PriceProps) => {
 
   const formatNumberToCurrency = (numero: number) => {

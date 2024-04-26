@@ -13,11 +13,14 @@ export const CountContainer = styled.div`
   font-family: 'Roboto', sans-serif;
   font-size: 1rem;
 
-  span {
+  button {
     &:not(:nth-child(2)) {
       color: ${props => props.theme.purple};
       font-size: 1.5rem;
       flex: 1;
+      border: none;
+      background-color: inherit;
+      cursor: pointer;  
     }
   }
 `
