@@ -1,14 +1,18 @@
+import { useContext } from 'react';
 import { Coffee } from '../../@types/coffee.type';
 import shoppingCartSimple from '../../assets/ShoppingCartSimple.svg';
 import { Count } from '../Count';
 import { Price } from '../Price';
 import { CoffeeCardContainer, CoffeeCardFooterContainer, CoffeeTagsContainer } from "./styles";
+import { CartContext } from '../../context/CartContext';
 
 interface CoffeeCardProps {
   coffee: Coffee
 }
 
-export const CoffeeCard = ({coffee }: CoffeeCardProps) => {
+export const CoffeeCard = ({ coffee }: CoffeeCardProps) => {
+
+  const { handleAddCoffeeToCart } = useContext(CartContext)
 
   return (
     <CoffeeCardContainer>
@@ -27,7 +31,9 @@ export const CoffeeCard = ({coffee }: CoffeeCardProps) => {
         <Price price={coffee.price} />
         <div>
           <Count coffee={coffee} />
-          <img src={shoppingCartSimple} alt="" />
+          <button onClick={() => handleAddCoffeeToCart(coffee)}>
+            <img src={shoppingCartSimple} alt="" />
+          </button>
         </div>
       </CoffeeCardFooterContainer>
 

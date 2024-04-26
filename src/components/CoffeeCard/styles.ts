@@ -88,4 +88,13 @@ export const CoffeeCardFooterContainer = styled.div`
     margin: 0;
     padding: 0.50rem;
   }
+
+  button {
+    cursor: pointer;
+    border: none;
+
+    &:hover {
+      filter: opacity(0.8);
+    }
+  }
 `

@@ -3,15 +3,18 @@ import { CoffeeContextProvider } from "./context/CoffeeContext"
 import { Router } from "./router/Router"
 import { GlobalStyle } from "./styles/global"
 import { defaultTheme } from "./styles/themes/default"
+import { CartContextProvider } from "./context/CartContext"
 
 
 
 function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
-      <CoffeeContextProvider>
-        <Router />
-      </CoffeeContextProvider>
+      <CartContextProvider>
+        <CoffeeContextProvider>
+          <Router />
+        </CoffeeContextProvider>
+      </CartContextProvider>
       <GlobalStyle />
     </ThemeProvider>
   )
