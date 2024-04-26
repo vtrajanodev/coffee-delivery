@@ -5,5 +5,5 @@ export interface Coffee {
   description: string;
   price: number;
   quantity: number
-  isOnCart?: boolean
+  isOnCart: boolean
 }
