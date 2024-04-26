@@ -27,7 +27,7 @@ export const LocaleContainer = styled(NavContainer)`
 `
 
 export const CartIconContainer = styled(NavContainer)`
-width: 2.375rem;
+  width: 2.375rem;
   padding: 0.25rem;
   background-color: ${props => props.theme["yellow-light"]};
 `
