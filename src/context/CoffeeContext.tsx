@@ -24,9 +24,7 @@ export const CoffeeContextProvider = ({ children }: CartContextProviderProps) =>
   const getCoffeeList = async () => {
     const { data } = await axios.get<Coffee[]>('http://localhost:3000/coffees')
     setCoffeeList(data)
-    console.log(data)
   }
-
 
   const handleSetCoffeeList = (coffees: Coffee[]) => {
     setCoffeeList(coffees)

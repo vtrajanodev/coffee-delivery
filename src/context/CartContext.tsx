@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useEffect, useState } from "react";
+import { ReactNode, createContext, useState } from "react";
 import { Cart } from "../@types/cart.type";
 import { Coffee } from "../@types/coffee.type";
 
@@ -9,8 +9,9 @@ interface CartContextProviderProps {
 
 interface CartContextProps {
   cart: Cart
-  handleAddCoffeeToCart: (coffee: Coffee) => void
   isCoffeeOnCart: (coffee: Coffee) => boolean
+  handleAddCoffeeToCart: (coffee: Coffee) => void
+  handleRemoveCoffeeFromCart: (coffee: Coffee) => void
 }
 
 export const CartContext = createContext({} as CartContextProps)
@@ -24,20 +25,23 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
     totalItemsValue: 0
   })
 
-  useEffect(() => {
-    console.log(cart)
-  }, [cart])
+
 
   const isCoffeeOnCart = (coffee: Coffee) => {
     return !!cart.items.find((item) => item.id === coffee.id)
   }
 
   const handleAddCoffeeToCart = (coffee: Coffee) => {
-
-
     setCart(state => ({
       ...state,
       items: isCoffeeOnCart(coffee) ? [...state.items] : [...state.items, coffee]
+    }))
+  }
+
+  const handleRemoveCoffeeFromCart = (coffee: Coffee) => {
+    setCart(state => ({
+      ...state,
+      items: [...state.items.filter((item) => item.id !== coffee.id)]
     }))
   }
 
@@ -45,7 +49,9 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
     <CartContext.Provider value={{
       cart,
       handleAddCoffeeToCart,
-      isCoffeeOnCart
+      handleRemoveCoffeeFromCart,
+      isCoffeeOnCart,
+
     }}>
       {children}
     </CartContext.Provider>
