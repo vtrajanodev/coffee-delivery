@@ -1,12 +1,13 @@
+import { NavLink } from 'react-router-dom'
+import cartIcon from '../../assets/cartIcon.svg'
 import localeIcon from '../../assets/localeIcon.svg'
 import logoIcon from '../../assets/logo.svg'
-import cartIcon from '../../assets/cartIcon.svg'
 import { CartIconContainer, HeaderContainer, LocaleContainer, NavContainer } from "./styles"
 
 export const Header = () => {
   return (
     <HeaderContainer>
-      <img src={logoIcon} alt="" />
+      <NavLink to={'/home'}><img src={logoIcon} alt="" /></NavLink>
 
       <NavContainer>
         <LocaleContainer>
@@ -15,7 +16,7 @@ export const Header = () => {
         </LocaleContainer>
 
         <CartIconContainer>
-          <img src={cartIcon} alt="" />
+          <NavLink to={'/cart'}><img src={cartIcon} alt="" /></NavLink>
         </CartIconContainer>
       </NavContainer>
     </HeaderContainer>
