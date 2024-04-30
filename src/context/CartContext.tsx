@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useState } from "react";
+import { ReactNode, createContext, useEffect, useState } from "react";
 import { Cart } from "../@types/cart.type";
 import { Coffee } from "../@types/coffee.type";
 
@@ -27,6 +27,19 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
     totalItemsValue: 0
   })
 
+  const totalItemsValue = cart.items.reduce((total, item) => total + (item.price * item.quantity), 0);
+  const deliveryFare = 5.00
+  const totalCartValue = totalItemsValue + deliveryFare
+
+  useEffect(() => {
+    setCart(state => ({
+      ...state,
+      items: [...state.items],
+      totalCartValue: totalCartValue,
+      totalItemsValue: totalItemsValue,
+    }))
+  }, [totalCartValue, totalItemsValue])
+
   const isCoffeeOnCart = (coffee: Coffee) => {
     return !!cart.items.find((item) => item.id === coffee.id)
   }
@@ -34,6 +47,8 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
   const handleAddCoffeeToCart = (coffee: Coffee) => {
     setCart(state => ({
       ...state,
+      totalCartValue: totalCartValue,
+      totalItemsValue: totalItemsValue,
       items: isCoffeeOnCart(coffee) ? [...state.items] : [...state.items, coffee]
     }))
   }
@@ -41,6 +56,8 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
   const handleRemoveCoffeeFromCart = (coffee: Coffee) => {
     setCart(state => ({
       ...state,
+      totalCartValue: totalCartValue,
+      totalItemsValue: totalItemsValue,
       items: [...state.items.filter((item) => item.id !== coffee.id)]
     }))
   }
@@ -49,6 +66,8 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
 
     setCart(state => ({
       ...state,
+      totalCartValue: totalCartValue,
+      totalItemsValue: totalItemsValue,
       items: [...state.items.map((item) => {
         if (item.id === coffee.id) {
           return { ...item, quantity: coffee.quantity + 1 }
@@ -61,8 +80,11 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
 
   const handleRemoveCoffeeQuantityOnCart = (coffee: Coffee) => {
 
+
     setCart(state => ({
       ...state,
+      totalCartValue: totalCartValue,
+      totalItemsValue: totalItemsValue,
       items: [...state.items.map((item) => {
         if (item.id === coffee.id) {
           return { ...item, quantity: coffee.quantity - 1 }
@@ -80,7 +102,8 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
       handleRemoveCoffeeFromCart,
       isCoffeeOnCart,
       handleAddCoffeeQuantityOnCart,
-      handleRemoveCoffeeQuantityOnCart
+      handleRemoveCoffeeQuantityOnCart,
+
     }}>
       {children}
     </CartContext.Provider>

@@ -2,9 +2,9 @@ import { useContext } from 'react'
 import { Coffee } from "../../@types/coffee.type"
 import trashIcon from '../../assets/trashIcon.svg'
 import { CartContext } from '../../context/CartContext'
+import { CoffeeContext } from '../../context/CoffeeContext'
 import { Count } from "../Count"
 import { CartInfoContainer, CartItemContainer, QuantityContainer } from "./styles"
-import { CoffeeContext } from '../../context/CoffeeContext'
 
 interface CartItemProps {
   coffee: Coffee
@@ -12,17 +12,20 @@ interface CartItemProps {
 
 export const CartItem = ({ coffee }: CartItemProps) => {
   const { handleRemoveCoffeeFromCart } = useContext(CartContext)
-  const { coffeeList, handleSetCoffeeList } = useContext(CoffeeContext)
+  const { coffeeList, handleSetCoffeeList, formatNumberToCurrency } = useContext(CoffeeContext)
+
+  const formattedCoffeePrice = formatNumberToCurrency(coffee.price * coffee.quantity)
+
 
   const setQuantityToZero = () => {
     const updatedList = coffeeList.map((item) => {
-      if(item.id === coffee.id) {
-        return {...item, quantity: 0}
+      if (item.id === coffee.id) {
+        return { ...item, quantity: 0 }
       } else {
         return item
       }
     })
-    
+
     handleSetCoffeeList(updatedList)
     handleRemoveCoffeeFromCart(coffee)
   }
@@ -42,7 +45,7 @@ export const CartItem = ({ coffee }: CartItemProps) => {
         </QuantityContainer>
       </CartInfoContainer>
 
-      <span>Price</span>
+      <span>{`R$ ${formattedCoffeePrice}`}</span>
     </CartItemContainer>
   )
 }

@@ -22,7 +22,7 @@ export const CartItemContainer = styled.div`
 export const CartInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
-
+margin-right: 20px;
   gap: 8px;
 
   h3 {
@@ -68,6 +68,7 @@ export const QuantityContainer = styled.div`
       font-family: 'Roboto', sans-serif;
       color: ${props => props.theme["base-text"]};
       color: ${props => props.theme.purple};
+      margin-left: 1rem;
     }
   }
   

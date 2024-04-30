@@ -27,6 +27,10 @@ export const CartDataContainer = styled.div`
       color: ${(props) => props.theme["base-text"]};
     }
 
+    div > span:last-child {
+      color: ${props => props.theme["base-text"]};
+    }
+
     div.total {
       span {
         font-size: 20px;
@@ -44,7 +48,7 @@ export const CartContainer = styled.div`
 
   background-color: ${(props) => props.theme["base-card"]};
 
-  width: 448px;
+  width: 480px;
   max-height: 600px;
   overflow-y: scroll;
 
@@ -79,6 +83,29 @@ export const CartContainer = styled.div`
 
       &:hover {
         opacity: 0.8;
+      }
+    }
+  }
+
+  div.confirm-order-button {
+    a {
+      color: ${props => props.theme["base-button"]};
+      text-decoration: none;
+      width: 100%;
+      height: 46px;
+      margin: 0;
+
+      text-align: center;
+      margin-top: 1.8rem;
+      background-color: ${props => props.theme["yellow-dark"]};
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        color: #000000;
+        background-color: ${props => props.theme["yellow"]};
       }
     }
   }

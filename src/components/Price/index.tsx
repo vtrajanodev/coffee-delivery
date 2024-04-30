@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { CoffeeContext } from "../../context/CoffeeContext";
 import { PriceContainer } from "./styles";
 
 interface PriceProps {
@@ -6,11 +8,8 @@ interface PriceProps {
 
 export const Price = ({ price }: PriceProps) => {
 
-  const formatNumberToCurrency = (numero: number) => {
-    return new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 4 }).format(numero);
-  }
-
-  const formattedCurrencyPrice = formatNumberToCurrency(price)
+  const { formatNumberToCurrency } = useContext(CoffeeContext)
+  const formattedCoffeePrice = formatNumberToCurrency(price)
 
   return (
     <PriceContainer>
@@ -18,7 +17,7 @@ export const Price = ({ price }: PriceProps) => {
         R$
       </span>
       <span>
-        {formattedCurrencyPrice}
+        {formattedCoffeePrice}
       </span>
     </PriceContainer>
   )

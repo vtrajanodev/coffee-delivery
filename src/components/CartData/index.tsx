@@ -1,12 +1,24 @@
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
+import { NavLink } from "react-router-dom"
 import { Coffee } from "../../@types/coffee.type"
 import { CartContext } from "../../context/CartContext"
+import { CoffeeContext } from "../../context/CoffeeContext"
 import { CartItem } from "../CartItem"
 import { CartContainer, CartDataContainer, CartDataTitleContainer } from "./styles"
-import { NavLink } from "react-router-dom"
 
 export const CartData = () => {
-  const { cart } = useContext(CartContext)
+  const { cart, setTotalCartValue } = useContext(CartContext)
+  const { formatNumberToCurrency } = useContext(CoffeeContext)
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart))
+    setTotalCartValue
+  }, [])
+
+  const formattedTotalCartValue = formatNumberToCurrency(cart.totalCartValue)
+  const formattedTotalItemsValue = formatNumberToCurrency(cart.totalItemsValue)
+
+
 
   return (
     <CartDataContainer>
@@ -31,23 +43,28 @@ export const CartData = () => {
 
         {
           !!cart.items.length && (
-            <div className="payment-info">
-              <div>
-                <span>Total de items</span>
-                <span>0</span>
+            <>
+              <div className="payment-info">
+                <div>
+                  <span>Total de items</span>
+                  <span>R$ {formattedTotalItemsValue}</span>
+                </div>
+                <div>
+                  <span>Entrega</span>
+                  <span>R$ 5,00</span>
+                </div>
+                <div className="total">
+                  <span>Total</span>
+                  <span>R$ {formattedTotalCartValue}</span>
+                </div>
               </div>
-              <div>
-                <span>Entrega</span>
-                <span>0</span>
+
+              <div className="confirm-order-button">
+                <NavLink to={'/checkout'}>Confirmar pedido</NavLink>
               </div>
-              <div className="total">
-                <span>Total</span>
-                <span>0</span>
-              </div>
-            </div>
+            </>
           )
         }
-
       </CartContainer>
     </CartDataContainer>
   )
