@@ -93,15 +93,6 @@ export const CoffeeCardFooterContainer = styled.div<CoffeeCardFooterContainerPro
     }
 
     button {
-      cursor: pointer;
       border: none;
-
-      &:hover:not(:disabled) {
-        filter: opacity(0.8);
-      }
-
-      &:disabled {
-        cursor: not-allowed;
-      }
     }
   `

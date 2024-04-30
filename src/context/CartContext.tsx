@@ -103,7 +103,6 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
       isCoffeeOnCart,
       handleAddCoffeeQuantityOnCart,
       handleRemoveCoffeeQuantityOnCart,
-
     }}>
       {children}
     </CartContext.Provider>

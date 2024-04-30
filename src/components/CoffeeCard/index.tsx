@@ -13,8 +13,7 @@ interface CoffeeCardProps {
 
 export const CoffeeCard = ({ coffee }: CoffeeCardProps) => {
 
-  const { handleAddCoffeeToCart, isCoffeeOnCart } = useContext(CartContext)
-  const isDisabled = coffee.quantity === 0 || isCoffeeOnCart(coffee)
+  const { isCoffeeOnCart } = useContext(CartContext)
 
   return (
     <CoffeeCardContainer>
@@ -33,7 +32,7 @@ export const CoffeeCard = ({ coffee }: CoffeeCardProps) => {
         <Price price={coffee.price} />
         <div>
           <Count coffee={coffee} />
-          <button disabled={isDisabled} onClick={() => handleAddCoffeeToCart(coffee)}>
+          <button>
             <img src={shoppingCartSimple} alt="" />
           </button>
         </div>
