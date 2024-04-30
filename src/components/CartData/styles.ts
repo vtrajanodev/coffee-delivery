@@ -52,4 +52,34 @@ export const CartContainer = styled.div`
     margin: 24px 0;
     color: ${(props) => props.theme["base-button"]};
   }
+
+  h1 {
+    font-size: 1.4rem;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    color: ${props => props.theme["base-subtitle"]};
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 15px;
+    color: ${props => props.theme["base-title"]};
+  }
+
+  div.link-to-home {
+    text-align: center;
+    margin-top: 2rem;
+
+    a {
+      text-decoration: none;
+      color: ${props => props.theme.purple};
+      background-color: ${props => props.theme["purple-light"]};
+      padding: 12px;
+      border-radius: 4px;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
 `;

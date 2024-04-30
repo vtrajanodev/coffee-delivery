@@ -3,6 +3,7 @@ import { Coffee } from "../../@types/coffee.type"
 import { CartContext } from "../../context/CartContext"
 import { CartItem } from "../CartItem"
 import { CartContainer, CartDataContainer, CartDataTitleContainer } from "./styles"
+import { NavLink } from "react-router-dom"
 
 export const CartData = () => {
   const { cart } = useContext(CartContext)
@@ -15,10 +16,17 @@ export const CartData = () => {
         {cart.items.length ? cart.items.map((coffee: Coffee) => (
           <>
             <CartItem coffee={coffee} />
-
             <hr />
           </>
-        )) : (<h1>Carrinho vazio</h1>)
+        )) : (
+          <>
+            <h1>Carrinho vazio</h1>
+            <p>O seu carrinho está vazio, volte para a página inicial e adicione alguns cafés maravilhosos 🖤</p>
+            <div className="link-to-home">
+              <NavLink to={"/home"}>Escolher cafés</NavLink>
+            </div>
+          </>
+        )
         }
 
         {
