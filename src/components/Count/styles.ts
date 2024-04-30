@@ -5,13 +5,16 @@ export const CountContainer = styled.div`
   align-items: center;
   justify-content: center;
 
-  width: 4.5rem;
+  width: 96px;
+  height: 32px;
   background-color: ${props => props.theme["base-button"]};
   gap: 0.75rem;
   padding: 0.5rem;
 
   font-family: 'Roboto', sans-serif;
   font-size: 1rem;
+
+  border-radius: 4px;
 
   button {
     &:not(:nth-child(2)) {

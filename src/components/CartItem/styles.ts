@@ -42,7 +42,7 @@ export const QuantityContainer = styled.div`
 
   margin-right: 8px;
 
-  div {
+  button {
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -51,6 +51,8 @@ export const QuantityContainer = styled.div`
     height: 32px;
     background-color: ${props => props.theme["base-button"]};
     margin-left: 8px;
+    border: none;
+    border-radius: 4px;
 
     img {
       display: flex;

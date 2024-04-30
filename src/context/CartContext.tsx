@@ -11,7 +11,9 @@ interface CartContextProps {
   cart: Cart
   isCoffeeOnCart: (coffee: Coffee) => boolean
   handleAddCoffeeToCart: (coffee: Coffee) => void
-  handleRemoveCoffeeFromCart: (coffee: Coffee) => void
+  handleRemoveCoffeeFromCart: (coffee: Coffee) => void,
+  handleAddCoffeeQuantityOnCart: (coffee: Coffee) => void,
+  handleRemoveCoffeeQuantityOnCart: (coffee: Coffee) => void,
 }
 
 export const CartContext = createContext({} as CartContextProps)
@@ -24,8 +26,6 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
     totalCartValue: 0,
     totalItemsValue: 0
   })
-
-
 
   const isCoffeeOnCart = (coffee: Coffee) => {
     return !!cart.items.find((item) => item.id === coffee.id)
@@ -45,13 +45,42 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
     }))
   }
 
+  const handleAddCoffeeQuantityOnCart = (coffee: Coffee) => {
+
+    setCart(state => ({
+      ...state,
+      items: [...state.items.map((item) => {
+        if (item.id === coffee.id) {
+          return { ...item, quantity: coffee.quantity + 1 }
+        } else {
+          return item
+        }
+      })]
+    }))
+  }
+
+  const handleRemoveCoffeeQuantityOnCart = (coffee: Coffee) => {
+
+    setCart(state => ({
+      ...state,
+      items: [...state.items.map((item) => {
+        if (item.id === coffee.id) {
+          return { ...item, quantity: coffee.quantity - 1 }
+        } else {
+          return item
+        }
+      })]
+    }))
+  }
+
   return (
     <CartContext.Provider value={{
       cart,
       handleAddCoffeeToCart,
       handleRemoveCoffeeFromCart,
       isCoffeeOnCart,
-
+      handleAddCoffeeQuantityOnCart,
+      handleRemoveCoffeeQuantityOnCart
     }}>
       {children}
     </CartContext.Provider>

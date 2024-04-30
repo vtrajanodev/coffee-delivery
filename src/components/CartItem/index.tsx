@@ -1,13 +1,32 @@
-import trashIcon from '../../assets/trashIcon.svg'
+import { useContext } from 'react'
 import { Coffee } from "../../@types/coffee.type"
+import trashIcon from '../../assets/trashIcon.svg'
+import { CartContext } from '../../context/CartContext'
 import { Count } from "../Count"
 import { CartInfoContainer, CartItemContainer, QuantityContainer } from "./styles"
+import { CoffeeContext } from '../../context/CoffeeContext'
 
 interface CartItemProps {
   coffee: Coffee
 }
 
 export const CartItem = ({ coffee }: CartItemProps) => {
+  const { handleRemoveCoffeeFromCart } = useContext(CartContext)
+  const { coffeeList, handleSetCoffeeList } = useContext(CoffeeContext)
+
+  const setQuantityToZero = () => {
+    const updatedList = coffeeList.map((item) => {
+      if(item.id === coffee.id) {
+        return {...item, quantity: 0}
+      } else {
+        return item
+      }
+    })
+    
+    handleSetCoffeeList(updatedList)
+    handleRemoveCoffeeFromCart(coffee)
+  }
+
   return (
     <CartItemContainer>
       <img src={coffee.imgSrc} alt="" />
@@ -16,11 +35,11 @@ export const CartItem = ({ coffee }: CartItemProps) => {
         <h3>{coffee.name}</h3>
         <QuantityContainer>
           <Count coffee={coffee} />
-          <div className='quantity'>
+          <button className='quantity' onClick={() => setQuantityToZero()}>
             <img src={trashIcon} alt="" />
             <span>Remover</span>
-          </div>
-        </QuantityContainer>  
+          </button>
+        </QuantityContainer>
       </CartInfoContainer>
 
       <span>Price</span>
