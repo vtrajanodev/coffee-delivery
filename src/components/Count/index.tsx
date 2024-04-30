@@ -11,7 +11,7 @@ interface CountProps {
 export const Count = ({ coffee }: CountProps) => {
 
   const { coffeeList, handleSetCoffeeList } = useContext(CoffeeContext)
-  const { handleRemoveCoffeeFromCart, handleAddCoffeeQuantityOnCart, handleRemoveCoffeeQuantityOnCart } = useContext(CartContext)
+  const { handleRemoveCoffeeFromCart, handleAddCoffeeQuantityOnCart, handleRemoveCoffeeQuantityOnCart, handleAddCoffeeToCart } = useContext(CartContext)
 
   const handleAddCoffeeQuantity = () => {
     const updatedCoffeeList = coffeeList.map((item: Coffee) => {
@@ -22,6 +22,7 @@ export const Count = ({ coffee }: CountProps) => {
       }
     })
 
+    handleAddCoffeeToCart(coffee)
     handleAddCoffeeQuantityOnCart(coffee)
     handleSetCoffeeList(updatedCoffeeList)
   }
@@ -29,8 +30,12 @@ export const Count = ({ coffee }: CountProps) => {
   const handleRemoveCoffeeQuantity = () => {
 
     const updatedCoffeeList = coffeeList.map((item: Coffee) => {
+      const hasOneQuantity = item.quantity === 1
+      
+      if (item.quantity === 0) return item;
+
       if (item.id === coffee.id) {
-        item.quantity === 1 && handleRemoveCoffeeFromCart(coffee);
+        hasOneQuantity && handleRemoveCoffeeFromCart(coffee);
         return { ...item, quantity: item.quantity - 1 }
       } else {
         return item

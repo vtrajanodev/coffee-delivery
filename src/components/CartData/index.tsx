@@ -54,7 +54,7 @@ export const CartData = () => {
               </div>
 
               <div className="confirm-order-button">
-                <NavLink to={'/checkout'}>Confirmar pedido</NavLink>
+                <NavLink to={'/finalize'}>Confirmar pedido</NavLink>
               </div>
             </>
           )
