@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react"
+import { useContext } from "react"
 import { NavLink } from "react-router-dom"
 import { Coffee } from "../../@types/coffee.type"
 import { CartContext } from "../../context/CartContext"
@@ -7,18 +7,12 @@ import { CartItem } from "../CartItem"
 import { CartContainer, CartDataContainer, CartDataTitleContainer } from "./styles"
 
 export const CartData = () => {
-  const { cart, setTotalCartValue } = useContext(CartContext)
+  const { cart } = useContext(CartContext)
   const { formatNumberToCurrency } = useContext(CoffeeContext)
 
-  useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart))
-    setTotalCartValue
-  }, [])
 
   const formattedTotalCartValue = formatNumberToCurrency(cart.totalCartValue)
   const formattedTotalItemsValue = formatNumberToCurrency(cart.totalItemsValue)
-
-
 
   return (
     <CartDataContainer>
