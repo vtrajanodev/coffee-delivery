@@ -18,7 +18,7 @@ export const AddressContainer = styled.div`
 
 export const FormContainer = styled.div`
   width: 45rem;
-  height: 23.25rem;
+  /* height: 23.25rem; */
   border-radius: 8px;
   padding: 2.5rem;
 

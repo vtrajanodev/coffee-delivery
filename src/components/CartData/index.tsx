@@ -6,7 +6,7 @@ import { CoffeeContext } from "../../context/CoffeeContext"
 import { CartItem } from "../CartItem"
 import { CartContainer, CartDataContainer, CartDataTitleContainer } from "./styles"
 
-export const CartData = () => {
+export const CartData = (hanleSubmitFormValues: any) => {
   const { cart } = useContext(CartContext)
   const { formatNumberToCurrency } = useContext(CoffeeContext)
 

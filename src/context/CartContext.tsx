@@ -9,11 +9,12 @@ interface CartContextProviderProps {
 
 interface CartContextProps {
   cart: Cart
-  isCoffeeOnCart: (coffee: Coffee) => boolean
-  handleAddCoffeeToCart: (coffee: Coffee) => void
-  handleRemoveCoffeeFromCart: (coffee: Coffee) => void,
-  handleAddCoffeeQuantityOnCart: (coffee: Coffee) => void,
-  handleRemoveCoffeeQuantityOnCart: (coffee: Coffee) => void,
+  isCoffeeOnCart: (coffee: Coffee) => boolean;
+  handleAddCoffeeToCart: (coffee: Coffee) => void;
+  handleRemoveCoffeeFromCart: (coffee: Coffee) => void;
+  handleAddCoffeeQuantityOnCart: (coffee: Coffee) => void;
+  handleRemoveCoffeeQuantityOnCart: (coffee: Coffee) => void;
+  setDeliveryAdrress: (state: Cart) => void;
 }
 
 export const CartContext = createContext({} as CartContextProps)
@@ -24,7 +25,17 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
     items: [],
     delivery: 0,
     totalCartValue: 0,
-    totalItemsValue: 0
+    totalItemsValue: 0,
+    paymentMethod: '',
+    address: {
+      cep: '',
+      city: '',
+      complement: '',
+      neighbourhood: '',
+      number: '',
+      state: '',
+      street: ''
+    }
   })
 
   const totalItemsValue = cart.items.reduce((total, item) => total + (item.price * item.quantity), 0);
@@ -79,8 +90,6 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
   }
 
   const handleRemoveCoffeeQuantityOnCart = (coffee: Coffee) => {
-
-
     setCart(state => ({
       ...state,
       totalCartValue: totalCartValue,
@@ -95,6 +104,10 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
     }))
   }
 
+  const setDeliveryAdrress = (state: Cart) => {
+    setCart(state)
+  }
+
   return (
     <CartContext.Provider value={{
       cart,
@@ -103,6 +116,7 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
       isCoffeeOnCart,
       handleAddCoffeeQuantityOnCart,
       handleRemoveCoffeeQuantityOnCart,
+      setDeliveryAdrress
     }}>
       {children}
     </CartContext.Provider>
