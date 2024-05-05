@@ -13,7 +13,6 @@ export const AddressContainer = styled.div`
   width: 50%;
   display: flex;
   flex-direction: column;
-
 `;
 
 export const FormContainer = styled.div`
@@ -135,7 +134,7 @@ export const PaymentContainer = styled.div`
 
   div.confirm-order-button {
     button {
-      color: ${props => props.theme["base-button"]};
+      color: ${(props) => props.theme["base-button"]};
       text-decoration: none;
       width: 100%;
       height: 46px;
@@ -145,7 +144,7 @@ export const PaymentContainer = styled.div`
 
       text-align: center;
       margin-top: 1.8rem;
-      background-color: ${props => props.theme["yellow-dark"]};
+      background-color: ${(props) => props.theme["yellow-dark"]};
       border-radius: 6px;
       display: flex;
       align-items: center;
@@ -153,8 +152,13 @@ export const PaymentContainer = styled.div`
 
       &:hover {
         color: #000000;
-        background-color: ${props => props.theme["yellow"]};
+        background-color: ${(props) => props.theme["yellow"]};
       }
+
+      
+    &:disabled {
+      cursor: not-allowed;
+    }
     }
   }
 `;
@@ -168,17 +172,18 @@ export const PaymentFooterContainer = styled.footer`
     cursor: pointer;
     background-color: ${(props) => props.theme["base-button"]};
     font-size: 0.9rem;
-    color: ${(props) => props.theme["base-text"]};;
+    color: ${(props) => props.theme["base-text"]};
     border-radius: 6px;
     padding: 1rem 1.1rem;
     border: 1px solid transparent;
 
     &:hover {
-      border: 1px solid ${props => props.theme.purple};
+      border: 1px solid ${(props) => props.theme.purple};
     }
-  }
 
-  button.active {
-    border: 1px solid ${props => props.theme.purple};
+    &.active {
+      border: 1px solid ${(props) => props.theme.purple};
+      background-color: ${(props) => props.theme["purple-light"]};;
+    }
   }
 `;

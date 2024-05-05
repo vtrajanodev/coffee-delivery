@@ -57,6 +57,7 @@ export const Address = () => {
   const creditCardPaymentMethod = cart.paymentMethod === 'creditCard' 
   const debitCardPaymentMethod = cart.paymentMethod === 'debitCard' 
   const moneyPaymentMethod = cart.paymentMethod === 'money' 
+  const isDisabled = cart.items.length === 0
 
   return (
     <>
@@ -168,7 +169,7 @@ export const Address = () => {
                       </button>
                     </PaymentFooterContainer>
                     <div className="confirm-order-button">
-                      <button type="submit">Confirmar pedido</button>
+                      <button disabled={isDisabled} type="submit">Confirmar pedido</button>
                     </div>
                   </PaymentContainer>
                 </Form>
