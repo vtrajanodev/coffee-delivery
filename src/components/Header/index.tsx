@@ -23,7 +23,7 @@ export const Header = () => {
         <CartIconContainer>
           <NavLink to={'/cart'}>
             <CartIcon src={cartIcon} alt="Cart" />
-            {cart.items.length > 0 && <ItemCount>{cart.items.length}</ItemCount>}
+            <ItemCount>{cart.items.length}</ItemCount>
           </NavLink>
         </CartIconContainer>
       </NavContainer>
