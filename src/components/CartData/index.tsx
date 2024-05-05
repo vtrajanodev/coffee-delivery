@@ -6,7 +6,7 @@ import { CoffeeContext } from "../../context/CoffeeContext"
 import { CartItem } from "../CartItem"
 import { CartContainer, CartDataContainer, CartDataTitleContainer } from "./styles"
 
-export const CartData = (hanleSubmitFormValues: any) => {
+export const CartData = () => {
   const { cart } = useContext(CartContext)
   const { formatNumberToCurrency } = useContext(CoffeeContext)
 
@@ -51,10 +51,6 @@ export const CartData = (hanleSubmitFormValues: any) => {
                   <span>Total</span>
                   <span>R$ {formattedTotalCartValue}</span>
                 </div>
-              </div>
-
-              <div className="confirm-order-button">
-                <NavLink to={'/finalize'}>Confirmar pedido</NavLink>
               </div>
             </>
           )

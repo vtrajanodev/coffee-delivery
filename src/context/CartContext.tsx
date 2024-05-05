@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
-import { Cart } from "../@types/cart.type";
+import { Cart, PaymentMethod } from "../@types/cart.type";
 import { Coffee } from "../@types/coffee.type";
 
 
@@ -15,18 +15,21 @@ interface CartContextProps {
   handleAddCoffeeQuantityOnCart: (coffee: Coffee) => void;
   handleRemoveCoffeeQuantityOnCart: (coffee: Coffee) => void;
   setDeliveryAdrress: (state: Cart) => void;
+  handleChoosePaymentMethod: (paymentMethodDefined: PaymentMethod) => void;
 }
 
 export const CartContext = createContext({} as CartContextProps)
 
 export const CartContextProvider = ({ children }: CartContextProviderProps) => {
 
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('')
+
   const [cart, setCart] = useState<Cart>({
     items: [],
     delivery: 0,
     totalCartValue: 0,
     totalItemsValue: 0,
-    paymentMethod: '',
+    paymentMethod: paymentMethod,
     address: {
       cep: '',
       city: '',
@@ -50,6 +53,16 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
       totalItemsValue: totalItemsValue,
     }))
   }, [totalCartValue, totalItemsValue])
+
+  const handleChoosePaymentMethod = (paymentMethodDefined: PaymentMethod) => {
+    setPaymentMethod(paymentMethod)
+    setCart(state => ({
+      ...state,
+      paymentMethod: paymentMethodDefined
+    }))
+
+    console.log(cart)
+  }
 
   const isCoffeeOnCart = (coffee: Coffee) => {
     return !!cart.items.find((item) => item.id === coffee.id)
@@ -116,7 +129,8 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
       isCoffeeOnCart,
       handleAddCoffeeQuantityOnCart,
       handleRemoveCoffeeQuantityOnCart,
-      setDeliveryAdrress
+      setDeliveryAdrress,
+      handleChoosePaymentMethod
     }}>
       {children}
     </CartContext.Provider>

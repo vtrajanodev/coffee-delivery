@@ -51,7 +51,7 @@ export const FormHeaderTextContainer = styled.div`
   }
 `;
 
-export const FormFieldsContainer = styled.form`
+export const FormFieldsContainer = styled.div`
   input {
     height: 2.8rem;
     border: none;
@@ -132,15 +132,40 @@ export const PaymentContainer = styled.div`
     font-size: 14px;
     margin-bottom: 2rem;
   }
+
+  div.confirm-order-button {
+    button {
+      color: ${props => props.theme["base-button"]};
+      text-decoration: none;
+      width: 100%;
+      height: 46px;
+      margin: 0;
+      border: none;
+      cursor: pointer;
+
+      text-align: center;
+      margin-top: 1.8rem;
+      background-color: ${props => props.theme["yellow-dark"]};
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        color: #000000;
+        background-color: ${props => props.theme["yellow"]};
+      }
+    }
+  }
 `;
 
 export const PaymentFooterContainer = styled.footer`
   display: flex;
   justify-content: space-between;
 
-  div {
+  button {
     display: flex;
-    gap: 0.85rem;
+    cursor: pointer;
     background-color: ${(props) => props.theme["base-button"]};
     font-size: 0.9rem;
     color: ${(props) => props.theme["base-text"]};;
@@ -151,5 +176,9 @@ export const PaymentFooterContainer = styled.footer`
     &:hover {
       border: 1px solid ${props => props.theme.purple};
     }
+  }
+
+  button.active {
+    border: 1px solid ${props => props.theme.purple};
   }
 `;

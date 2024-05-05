@@ -2,8 +2,13 @@ import { CheckoutInfoContainer, DeliveryInfoContainer, InfoItemsContainer } from
 import localeIcon2 from '../../assets/localeIcon2.svg'
 import timeIcon2 from '../../assets/timerIcon2.svg'
 import currencyIcon from '../../assets/currencyIcon.svg'
+import { useContext } from "react"
+import { CartContext } from "../../context/CartContext"
 
 export const CheckoutInfo = () => {
+
+  const { cart } = useContext(CartContext)
+
   return (
     <CheckoutInfoContainer>
       <h1>Uhu! Pedido confirmado</h1>
@@ -13,7 +18,7 @@ export const CheckoutInfo = () => {
       <InfoItemsContainer>
         <img src={localeIcon2} alt="" />
         <div>
-          <p>Entrega em Rua João Daniel Martinelli, 102</p>
+          <p>{`Entrega em ${cart.address.street}, ${cart.address.number}`}</p>
           <p>Farrapos - Porto Alegre, RS</p>
         </div>
       </InfoItemsContainer>
@@ -30,7 +35,7 @@ export const CheckoutInfo = () => {
         <img src={currencyIcon} alt="" />
         <div>
           <p>Pagamento na entrega</p>
-          <p>Cartão de crédito</p>
+          <p>{cart.paymentMethod}</p>
         </div>
       </InfoItemsContainer>
     </DeliveryInfoContainer>
