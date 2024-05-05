@@ -2,9 +2,14 @@ import { NavLink } from 'react-router-dom'
 import cartIcon from '../../assets/cartIcon.svg'
 import localeIcon from '../../assets/localeIcon.svg'
 import logoIcon from '../../assets/logo.svg'
-import { CartIconContainer, HeaderContainer, LocaleContainer, NavContainer } from "./styles"
+import { CartIcon, CartIconContainer, HeaderContainer, ItemCount, LocaleContainer, NavContainer } from "./styles"
+import { useContext } from 'react'
+import { CartContext } from '../../context/CartContext'
 
 export const Header = () => {
+
+  const { cart } = useContext(CartContext)
+
   return (
     <HeaderContainer>
       <NavLink to={'/home'}><img src={logoIcon} alt="" /></NavLink>
@@ -16,7 +21,10 @@ export const Header = () => {
         </LocaleContainer>
 
         <CartIconContainer>
-          <NavLink to={'/cart'}><img src={cartIcon} alt="" /></NavLink>
+          <NavLink to={'/cart'}>
+            <CartIcon src={cartIcon} alt="Cart" />
+            {cart.items.length > 0 && <ItemCount>{cart.items.length}</ItemCount>}
+          </NavLink>
         </CartIconContainer>
       </NavContainer>
     </HeaderContainer>
