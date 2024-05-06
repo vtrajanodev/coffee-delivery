@@ -17,6 +17,10 @@ export const CartData = () => {
     }
   }, [])
 
+  const randomString = () => {
+
+  }
+
 
   const formattedTotalCartValue = formatNumberToCurrency(cart.totalCartValue)
   const formattedTotalItemsValue = formatNumberToCurrency(cart.totalItemsValue)
@@ -27,18 +31,18 @@ export const CartData = () => {
 
       <CartContainer>
         {cart.items.length ? cart.items.map((coffee: Coffee) => (
-          <>
+          <div key={coffee.id}>
             <CartItem coffee={coffee} />
             <hr />
-          </>
+          </div>
         )) : (
-          <>
+          <div>
             <h1>Carrinho vazio</h1>
             <p>O seu carrinho está vazio, volte para a página inicial e adicione alguns cafés maravilhosos 🖤</p>
             <div className="link-to-home">
               <NavLink to={"/home"}>Escolher cafés</NavLink>
             </div>
-          </>
+          </div>
         )
         }
 
