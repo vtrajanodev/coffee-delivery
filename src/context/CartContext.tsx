@@ -60,8 +60,6 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
       ...state,
       paymentMethod: paymentMethodDefined
     }))
-
-    console.log(cart)
   }
 
   const isCoffeeOnCart = (coffee: Coffee) => {

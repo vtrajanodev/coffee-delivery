@@ -93,9 +93,6 @@ export const Address = () => {
 
                 setDeliveryAdrress(updatedCartWithAddress)
                 navigate('/finalize')
-                console.log(values);
-
-
               }}
             >
               {({ errors, touched }) => (
