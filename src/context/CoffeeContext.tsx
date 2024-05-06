@@ -19,8 +19,20 @@ export const CoffeeContextProvider = ({ children }: CartContextProviderProps) =>
   const [coffeeList, setCoffeeList] = useState<Coffee[]>([])
 
   useEffect(() => {
-    getCoffeeList()
+    const coffeeListAtLocalStorage = localStorage.getItem('coffeeList')
+    if (coffeeListAtLocalStorage) {
+      setCoffeeList(JSON.parse(coffeeListAtLocalStorage))
+    } else {
+      getCoffeeList()
+    }
   }, [])
+
+  useEffect(() => {
+    if (coffeeList.length) {
+      localStorage.setItem('coffeeList', JSON.stringify(coffeeList))
+    }
+  }, [coffeeList])
+
 
   const getCoffeeList = async () => {
     const { data } = await axios.get<Coffee[]>('http://localhost:3000/coffees')

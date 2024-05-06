@@ -3,12 +3,19 @@ import cartIcon from '../../assets/cartIcon.svg'
 import localeIcon from '../../assets/localeIcon.svg'
 import logoIcon from '../../assets/logo.svg'
 import { CartIcon, CartIconContainer, HeaderContainer, ItemCount, LocaleContainer, NavContainer } from "./styles"
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { CartContext } from '../../context/CartContext'
 
 export const Header = () => {
 
-  const { cart } = useContext(CartContext)
+  const { cart, handleSetCart } = useContext(CartContext)
+
+  useEffect(() => {
+    const localStorageCart = localStorage.getItem('cart')
+    if (localStorageCart) {
+      handleSetCart(JSON.parse(localStorageCart))
+    }
+  }, [])
 
   return (
     <HeaderContainer>

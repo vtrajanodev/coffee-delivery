@@ -14,7 +14,7 @@ interface CartContextProps {
   handleRemoveCoffeeFromCart: (coffee: Coffee) => void;
   handleAddCoffeeQuantityOnCart: (coffee: Coffee) => void;
   handleRemoveCoffeeQuantityOnCart: (coffee: Coffee) => void;
-  setDeliveryAdrress: (state: Cart) => void;
+  handleSetCart: (state: Cart) => void;
   handleChoosePaymentMethod: (paymentMethodDefined: PaymentMethod) => void;
 }
 
@@ -40,6 +40,13 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
       street: ''
     }
   })
+
+  useEffect(() => {
+    const hasItemsOnCart = cart.items.length;
+    if (hasItemsOnCart) {
+      localStorage.setItem('cart', JSON.stringify(cart))
+    }
+  }, [cart])
 
   const totalItemsValue = cart.items.reduce((total, item) => total + (item.price * item.quantity), 0);
   const deliveryFare = 5.00
@@ -82,6 +89,8 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
       totalItemsValue: totalItemsValue,
       items: [...state.items.filter((item) => item.id !== coffee.id)]
     }))
+
+    localStorage.removeItem('cart')
   }
 
   const handleAddCoffeeQuantityOnCart = (coffee: Coffee) => {
@@ -115,7 +124,7 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
     }))
   }
 
-  const setDeliveryAdrress = (state: Cart) => {
+  const handleSetCart = (state: Cart) => {
     setCart(state)
   }
 
@@ -127,7 +136,7 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
       isCoffeeOnCart,
       handleAddCoffeeQuantityOnCart,
       handleRemoveCoffeeQuantityOnCart,
-      setDeliveryAdrress,
+      handleSetCart,
       handleChoosePaymentMethod
     }}>
       {children}

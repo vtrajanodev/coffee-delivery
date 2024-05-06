@@ -18,8 +18,8 @@ import {
   PaymentFooterContainer,
 } from "./styles";
 
-import * as Yup from 'yup';
 import { useNavigate } from "react-router-dom";
+import * as Yup from 'yup';
 
 const AddressFormSchema = Yup.object().shape({
   cep: Yup.string()
@@ -42,7 +42,7 @@ const AddressFormSchema = Yup.object().shape({
 export const Address = () => {
 
   const navigate = useNavigate()
-  const { cart, setDeliveryAdrress, handleChoosePaymentMethod } = useContext(CartContext)
+  const { cart, handleSetCart, handleChoosePaymentMethod } = useContext(CartContext)
 
   const INTIAL_FORM_VALUES: CartAddress = {
     cep: '',
@@ -54,9 +54,9 @@ export const Address = () => {
     state: '',
   }
 
-  const creditCardPaymentMethod = cart.paymentMethod === 'creditCard' 
-  const debitCardPaymentMethod = cart.paymentMethod === 'debitCard' 
-  const moneyPaymentMethod = cart.paymentMethod === 'money' 
+  const creditCardPaymentMethod = cart.paymentMethod === 'creditCard'
+  const debitCardPaymentMethod = cart.paymentMethod === 'debitCard'
+  const moneyPaymentMethod = cart.paymentMethod === 'money'
   const isDisabled = cart.items.length === 0
 
   return (
@@ -91,7 +91,7 @@ export const Address = () => {
                   }
                 };
 
-                setDeliveryAdrress(updatedCartWithAddress)
+                handleSetCart(updatedCartWithAddress)
                 navigate('/finalize')
               }}
             >

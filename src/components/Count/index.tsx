@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { Coffee } from "../../@types/coffee.type"
 import { CartContext } from "../../context/CartContext"
 import { CoffeeContext } from "../../context/CoffeeContext"
@@ -13,6 +13,16 @@ export const Count = ({ coffee }: CountProps) => {
   const { coffeeList, handleSetCoffeeList } = useContext(CoffeeContext)
   const { handleRemoveCoffeeFromCart, handleAddCoffeeQuantityOnCart, handleRemoveCoffeeQuantityOnCart, handleAddCoffeeToCart } = useContext(CartContext)
 
+
+  useEffect(() => {
+    const localStorageCoffeeList = localStorage.getItem('coffeeList')
+    if (localStorageCoffeeList) handleSetCoffeeList(JSON.parse(localStorageCoffeeList))
+  }, [])
+
+  const setLocalStorageItem = (value: Coffee[]) => {
+    localStorage.setItem('coffeeList', JSON.stringify(value))
+  }
+
   const handleAddCoffeeQuantity = () => {
     const updatedCoffeeList = coffeeList.map((item: Coffee) => {
       if (item.id === coffee.id) {
@@ -25,13 +35,14 @@ export const Count = ({ coffee }: CountProps) => {
     handleAddCoffeeToCart(coffee)
     handleAddCoffeeQuantityOnCart(coffee)
     handleSetCoffeeList(updatedCoffeeList)
+    setLocalStorageItem(updatedCoffeeList)
   }
 
   const handleRemoveCoffeeQuantity = () => {
 
     const updatedCoffeeList = coffeeList.map((item: Coffee) => {
       const hasOneQuantity = item.quantity === 1
-      
+
       if (item.quantity === 0) return item;
 
       if (item.id === coffee.id) {
@@ -44,6 +55,7 @@ export const Count = ({ coffee }: CountProps) => {
 
     handleRemoveCoffeeQuantityOnCart(coffee)
     handleSetCoffeeList(updatedCoffeeList)
+    setLocalStorageItem(updatedCoffeeList)
   }
 
   return (
