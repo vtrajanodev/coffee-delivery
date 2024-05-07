@@ -4,17 +4,20 @@ import { Router } from "./router/Router"
 import { GlobalStyle } from "./styles/global"
 import { defaultTheme } from "./styles/themes/default"
 import { CartContextProvider } from "./context/CartContext"
+import { AuthContextProvider } from "./context/AuthContext"
 
 
 
 function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
-      <CartContextProvider>
-        <CoffeeContextProvider>
-          <Router />
-        </CoffeeContextProvider>
-      </CartContextProvider>
+      <AuthContextProvider>
+        <CartContextProvider>
+          <CoffeeContextProvider>
+            <Router />
+          </CoffeeContextProvider>
+        </CartContextProvider>
+      </AuthContextProvider>
       <GlobalStyle />
     </ThemeProvider>
   )
