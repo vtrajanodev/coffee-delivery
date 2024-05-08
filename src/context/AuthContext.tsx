@@ -59,10 +59,9 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     }
   }
 
-  const SignOut = async() => {
+  const SignOut = async () => {
     setUser(undefined)
-    const saiu = await signOut(auth)
-    return saiu
+    return await signOut(auth)
   }
 
   return (
