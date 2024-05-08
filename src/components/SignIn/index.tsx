@@ -26,7 +26,7 @@ export type SignInFormType = typeof SignInInitialFormValues
 export const SignIn = () => {
 
 
-  const { user, signInWithGoogleAccount } = useContext(AuthContext)
+  const { user, signInWithGoogleAccount, signInWithFacebookAccount } = useContext(AuthContext)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -37,6 +37,10 @@ export const SignIn = () => {
 
   const handleSignInWithGoogleAccount = async () => {
     signInWithGoogleAccount()
+  }
+
+  const handleSignInWithFacebookAccount = async () => {
+    signInWithFacebookAccount()
   }
 
   return (
@@ -79,7 +83,7 @@ export const SignIn = () => {
 
           <SocialButtonsContainer className="social-buttons">
             <button onClick={handleSignInWithGoogleAccount} className="social-button"><img src={googleIcon} alt="" />Acesse com o Google</button>
-            <button className="social-button"><img src={facebookIcon} alt="" />Acesse com o facebook</button>
+            <button onClick={handleSignInWithFacebookAccount} className="social-button"><img src={facebookIcon} alt="" />Acesse com o facebook</button>
           </SocialButtonsContainer>
         </FooterContainer>
       </FormContainer>

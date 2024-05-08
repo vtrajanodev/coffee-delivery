@@ -1,11 +1,12 @@
 
-import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth";
+import { FacebookAuthProvider, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth";
 import { ReactNode, createContext, useEffect, useState } from "react";
 import { auth } from "../services/firebase";
 
 interface AuthContextProps {
   user: User | undefined;
-  signInWithGoogleAccount: () => void
+  signInWithGoogleAccount: () => void;
+  signInWithFacebookAccount: () => void;
   SignOut: () => Promise<void>;
 }
 
@@ -48,13 +49,29 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     const result = await signInWithPopup(auth, provider)
     GoogleAuthProvider.credentialFromResult(result)
 
-    const currentUser = auth.currentUser
+    const { displayName, photoURL, uid } = result.user
 
-    if (currentUser !== null) {
+    if (result.user) {
       setUser({
-        id: currentUser.uid,
-        name: currentUser.displayName,
-        photoUrl: currentUser.photoURL
+        id: uid,
+        name: displayName,
+        photoUrl: photoURL
+      })
+    }
+  }
+
+  const signInWithFacebookAccount = async () => {
+    const provider = new FacebookAuthProvider();
+    const result = await signInWithPopup(auth, provider)
+    FacebookAuthProvider.credentialFromResult(result)
+
+    const { displayName, photoURL, uid } = result.user
+
+    if (result.user) {
+      setUser({
+        id: uid,
+        name: displayName,
+        photoUrl: photoURL
       })
     }
   }
@@ -67,6 +84,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   return (
     <AuthContext.Provider value={{
       signInWithGoogleAccount,
+      signInWithFacebookAccount,
       SignOut,
       user
     }}>
