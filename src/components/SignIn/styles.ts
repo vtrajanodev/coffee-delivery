@@ -34,7 +34,6 @@ export const FormContainer = styled.div`
     input {
       width: 280px;
       height: 42px;
-      border: none;
       outline: none;
       border-radius: 8px;
       padding-left: 8px;
@@ -42,6 +41,7 @@ export const FormContainer = styled.div`
       background-color: ${(props) => props.theme["base-button"]};
       margin-top: 12px;
       font-family: "Baloo 2", sans-serif;
+      border: 1px solid transparent;
     }
 
     button {
@@ -140,7 +140,20 @@ export const SocialButtonsContainer = styled.div`
     &:hover {
       opacity: 0.8;
     }
+  }
+`
+interface LoginContainerProps {
+  $hasError: boolean;
+}
 
-  
+export const EmailContainer = styled.div<LoginContainerProps>`
+  input {
+    outline: ${props => props.$hasError && '1px solid red'} !important;
+  }
+`
+
+export const PasswordContainer = styled.div<LoginContainerProps>`
+  input {
+    outline: ${props => props.$hasError && '1px solid red'} !important;
   }
 `

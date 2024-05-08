@@ -1,15 +1,25 @@
 import { Field, Form, Formik } from "formik"
 import { useContext } from "react"
+import { Link } from "react-router-dom"
+import * as Yup from 'yup'
 import facebookIcon from '../../assets/facebook.svg'
 import googleIcon from '../../assets/google.svg'
 import { AuthContext } from "../../context/AuthContext"
-import { FooterContainer, FormContainer, SignInContainer, SocialButtonsContainer } from "./styles"
-import { Link } from "react-router-dom"
+import { EmailContainer, FooterContainer, FormContainer, PasswordContainer, SignInContainer, SocialButtonsContainer } from "./styles"
 
 const SignInInitialFormValues = {
   email: '',
   password: ''
 }
+
+
+const SIGN_UP_FORM_VALIDATION_SCHEMA = Yup.object().shape({
+  email: Yup.string()
+    .email('Email inválido')
+    .required('Email é obrigatório'),
+  password: Yup.string()
+    .required('Senha é um campo obrigatório')
+})
 
 export type SignInFormType = typeof SignInInitialFormValues
 
@@ -24,10 +34,10 @@ export const SignIn = () => {
       </header>
 
       <FormContainer>
-
         <h3>Entre com sua conta HTTPCoffee:</h3>
         <Formik<SignInFormType>
           initialValues={SignInInitialFormValues}
+          validationSchema={SIGN_UP_FORM_VALIDATION_SCHEMA}
           onSubmit={async (values) => {
             // await handleLogin(values)
             console.log(values)
@@ -35,14 +45,13 @@ export const SignIn = () => {
         >
           {({ errors, touched }) => (
             <Form>
-              <Field name="email" placeholder="Email" />
-              {errors.email && touched.email && (
-                <div>{errors.email}</div>
-              )}
-              <Field type="password" name="password" placeholder="Senha" />
-              {errors.password && touched.password && (
-                <div>{errors.password}</div>
-              )}
+              <EmailContainer $hasError={!!errors.email && !!touched.email}>
+                <Field name="email" placeholder="Email" />
+              </EmailContainer>
+              <PasswordContainer $hasError={!!errors.password && !!touched.password}>
+                <Field type="password" name="password" placeholder="Senha" />
+              </PasswordContainer>
+
               <button type="submit">Acessar cafeteria</button>
             </Form>
           )}
@@ -51,9 +60,9 @@ export const SignIn = () => {
         <FooterContainer>
           <div className="signin-info">
             <p>Não possui uma conta? </p>
-            <Link to="/signup">Clique aqui e cadastre-se</Link> 
+            <Link to="/signup">Clique aqui e cadastre-se</Link>
           </div>
-          
+
           <strong>Ou</strong>
 
           <SocialButtonsContainer className="social-buttons">
