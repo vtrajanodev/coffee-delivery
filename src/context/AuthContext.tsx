@@ -78,6 +78,8 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
 
   const SignOut = async () => {
     setUser(undefined)
+    localStorage.removeItem('cart')
+    localStorage.removeItem('coffeeList')
     return await signOut(auth)
   }
 

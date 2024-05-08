@@ -1,6 +1,7 @@
 import { useContext, useEffect } from 'react'
 import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import cartIcon from '../../assets/cartIcon.svg'
+import userIcon from '../../assets/user-icon.svg'
 import localeIcon from '../../assets/localeIcon.svg'
 import logoIcon from '../../assets/logo.svg'
 import logoutIcon from '../../assets/logout-icon.svg'
@@ -11,7 +12,7 @@ import { CartIcon, CartIconContainer, HeaderContainer, ItemCount, LocaleContaine
 export const Header = () => {
 
   const { cart, handleSetCart } = useContext(CartContext)
-  const { SignOut } = useContext(AuthContext)
+  const { user, SignOut } = useContext(AuthContext)
 
   const navigate = useNavigate();
   const route = useLocation()
@@ -25,6 +26,7 @@ export const Header = () => {
 
   const logout = async () => {
     await SignOut()
+    handleSetCart({ ...cart, items: [] })
     navigate('/login')
   }
 
@@ -33,10 +35,15 @@ export const Header = () => {
       <NavLink to={'/home'}><img src={logoIcon} alt="" /></NavLink>
 
       <NavContainer>
-        <LocaleContainer>
-          <img src={localeIcon} />
-          <span>Manaus, AM</span>
-        </LocaleContainer>
+        <div className='account-info'>
+          <img src={`${user?.photoUrl}`} alt="" />
+
+          <LocaleContainer>
+            <span>{user?.name}</span>
+            <img src={userIcon} />
+          </LocaleContainer>
+        </div>
+
 
         <CartIconContainer>
           <NavLink to={'/cart'}>
