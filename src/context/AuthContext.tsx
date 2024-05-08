@@ -1,35 +1,75 @@
 
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { ReactNode, createContext } from "react";
+import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth";
+import { ReactNode, createContext, useEffect, useState } from "react";
 import { auth } from "../services/firebase";
 
 interface AuthContextProps {
+  user: User | undefined;
   signInWithGoogleAccount: () => void
+  SignOut: () => Promise<void>;
 }
 
 interface AuthContextProviderProps {
   children: ReactNode
 }
 
+interface User {
+  id?: string;
+  name?: string | null;
+  photoUrl?: string | null;
+}
+
 export const AuthContext = createContext({} as AuthContextProps)
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
 
+  const [user, setUser] = useState<User | undefined>()
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const { displayName, photoURL, uid } = user
+
+        setUser({
+          id: uid,
+          name: displayName,
+          photoUrl: photoURL
+        })
+      }
+    })
+
+    return () => {
+      unsubscribe()
+    }
+  }, [])
+
   const signInWithGoogleAccount = async () => {
     const provider = new GoogleAuthProvider();
-
     const result = await signInWithPopup(auth, provider)
-    const credential = GoogleAuthProvider.credentialFromResult(result)
-    console.log('credential: ', credential)
-    const token = credential?.idToken
+    GoogleAuthProvider.credentialFromResult(result)
 
-    console.log(token)
+    const currentUser = auth.currentUser
+
+    if (currentUser !== null) {
+      setUser({
+        id: currentUser.uid,
+        name: currentUser.displayName,
+        photoUrl: currentUser.photoURL
+      })
+    }
   }
 
+  const SignOut = async() => {
+    setUser(undefined)
+    const saiu = await signOut(auth)
+    return saiu
+  }
 
   return (
     <AuthContext.Provider value={{
-      signInWithGoogleAccount
+      signInWithGoogleAccount,
+      SignOut,
+      user
     }}>
       {children}
     </AuthContext.Provider>

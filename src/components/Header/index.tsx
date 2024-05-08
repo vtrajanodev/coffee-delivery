@@ -1,14 +1,19 @@
 import { useContext, useEffect } from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import cartIcon from '../../assets/cartIcon.svg'
 import localeIcon from '../../assets/localeIcon.svg'
 import logoIcon from '../../assets/logo.svg'
+import { AuthContext } from '../../context/AuthContext'
 import { CartContext } from '../../context/CartContext'
 import { CartIcon, CartIconContainer, HeaderContainer, ItemCount, LocaleContainer, NavContainer } from "./styles"
 
 export const Header = () => {
 
   const { cart, handleSetCart } = useContext(CartContext)
+  const { SignOut } = useContext(AuthContext)
+
+  const navigate = useNavigate();
+  const route = useLocation()
 
   useEffect(() => {
     const localStorageCart = localStorage.getItem('cart')
@@ -17,7 +22,10 @@ export const Header = () => {
     }
   }, [])
 
-  const route = useLocation()
+  const logout = async () => {
+    await SignOut()
+    navigate('/login')
+  }
 
   return (
     <HeaderContainer>
@@ -35,6 +43,8 @@ export const Header = () => {
             {route.pathname !== '/finalize' && <ItemCount>{cart.items.length}</ItemCount>}
           </NavLink>
         </CartIconContainer>
+
+        <button onClick={logout}>sair</button>
       </NavContainer>
     </HeaderContainer>
   )

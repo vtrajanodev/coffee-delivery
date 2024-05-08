@@ -1,6 +1,6 @@
 import { Field, Form, Formik } from "formik"
-import { useContext } from "react"
-import { Link } from "react-router-dom"
+import { useContext, useEffect } from "react"
+import { Link, useNavigate } from "react-router-dom"
 import * as Yup from 'yup'
 import facebookIcon from '../../assets/facebook.svg'
 import googleIcon from '../../assets/google.svg'
@@ -25,7 +25,19 @@ export type SignInFormType = typeof SignInInitialFormValues
 
 export const SignIn = () => {
 
-  const { signInWithGoogleAccount } = useContext(AuthContext)
+
+  const { user, signInWithGoogleAccount } = useContext(AuthContext)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (user) {
+      navigate('/home')
+    }
+  }, [user])
+
+  const handleSignInWithGoogleAccount = async () => {
+    signInWithGoogleAccount()
+  }
 
   return (
     <SignInContainer>
@@ -66,7 +78,7 @@ export const SignIn = () => {
           <strong>Ou</strong>
 
           <SocialButtonsContainer className="social-buttons">
-            <button onClick={signInWithGoogleAccount} className="social-button"><img src={googleIcon} alt="" />Acesse com o Google</button>
+            <button onClick={handleSignInWithGoogleAccount} className="social-button"><img src={googleIcon} alt="" />Acesse com o Google</button>
             <button className="social-button"><img src={facebookIcon} alt="" />Acesse com o facebook</button>
           </SocialButtonsContainer>
         </FooterContainer>
