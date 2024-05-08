@@ -80,3 +80,24 @@ export const FormContainer = styled.div`
     }
   }
 `
+
+export const FooterContainer = styled.footer`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+
+  margin-top: 32px;
+  height: 100px;
+
+  a {
+      text-decoration: none;
+      color: ${props => props.theme["yellow-dark"]};
+      font-weight: bold;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+`

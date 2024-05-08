@@ -1,6 +1,7 @@
 import { Field, Form, Formik } from "formik"
+import { Link } from "react-router-dom"
 import * as Yup from 'yup'
-import { FormContainer, SignUpContainer } from "./styles"
+import { FooterContainer, FormContainer, SignUpContainer } from "./styles"
 
 const SIGN_UP_FORM_INITIAL_VALUES = {
   name: '',
@@ -54,11 +55,13 @@ export const SignUp = () => {
             <button type="submit">Cadastrar</button>
           </Form>
         )}
-
-
-
-
         </Formik>
+
+        <FooterContainer>
+          <span>Já possui uma conta? </span>
+         <Link to="/login">Entre agora mesmo</Link>
+        </FooterContainer>
+
       </FormContainer>
     </SignUpContainer>
   )
