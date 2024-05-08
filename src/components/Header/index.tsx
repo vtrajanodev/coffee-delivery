@@ -3,6 +3,7 @@ import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import cartIcon from '../../assets/cartIcon.svg'
 import localeIcon from '../../assets/localeIcon.svg'
 import logoIcon from '../../assets/logo.svg'
+import logoutIcon from '../../assets/logout-icon.svg'
 import { AuthContext } from '../../context/AuthContext'
 import { CartContext } from '../../context/CartContext'
 import { CartIcon, CartIconContainer, HeaderContainer, ItemCount, LocaleContainer, NavContainer } from "./styles"
@@ -44,7 +45,7 @@ export const Header = () => {
           </NavLink>
         </CartIconContainer>
 
-        <button onClick={logout}>sair</button>
+        <button title='Sair' onClick={logout}><img src={logoutIcon} alt="" /></button>
       </NavContainer>
     </HeaderContainer>
   )

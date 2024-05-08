@@ -5,11 +5,12 @@ export const HeaderContainer = styled.header`
   align-items: center;
   justify-content: space-between;
   height: 6.5rem;
-  width: 80%;
+  width: 85%;
   position: fixed; 
   top: 0; 
   background-color: #fafafa;
   z-index: 1000; 
+
 `
 
 export const NavContainer = styled.nav`
@@ -18,6 +19,21 @@ export const NavContainer = styled.nav`
   justify-content: center;
 
   height: 2.375rem;
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    /* padding: 4px; */
+    height: 2.375rem;
+    border: none;
+    outline: none;
+    margin-left: 64px;
+    width: 2.8rem;
+    background-color: ${props => props.theme["purple-light"]};
+    border-radius: 4px;
+  }
   
 `
 
@@ -25,7 +41,7 @@ export const LocaleContainer = styled(NavContainer)`
   background-color: ${props => props.theme["purple-light"]};
   color: ${props => props.theme["purple-dark"]}; 
   width: 8.9375rem;
-  border-radius: 6px;
+  border-radius: 4px;
 
   gap: 0.25rem;
   margin-right: 0.75rem;
