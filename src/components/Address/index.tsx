@@ -76,7 +76,7 @@ export const Address = () => {
           <FormFieldsContainer>
             <Formik
               initialValues={INTIAL_FORM_VALUES}
-              validationSchema={AddressFormSchema}
+              // validationSchema={AddressFormSchema}
               onSubmit={values => {
                 const updatedCartWithAddress: Cart = {
                   ...cart,

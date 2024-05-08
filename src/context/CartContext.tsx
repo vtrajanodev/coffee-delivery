@@ -16,6 +16,7 @@ interface CartContextProps {
   handleRemoveCoffeeQuantityOnCart: (coffee: Coffee) => void;
   handleSetCart: (state: Cart) => void;
   handleChoosePaymentMethod: (paymentMethodDefined: PaymentMethod) => void;
+  removeCartOnDeliveryConfirm: () => void;
 }
 
 export const CartContext = createContext({} as CartContextProps)
@@ -128,6 +129,16 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
     setCart(state)
   }
 
+  const removeCartOnDeliveryConfirm = () => {
+    handleSetCart({
+      ...cart,
+      items: []
+    })
+
+    localStorage.removeItem('cart')
+    localStorage.removeItem('coffeeList')
+  }
+
   return (
     <CartContext.Provider value={{
       cart,
@@ -137,7 +148,8 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
       handleAddCoffeeQuantityOnCart,
       handleRemoveCoffeeQuantityOnCart,
       handleSetCart,
-      handleChoosePaymentMethod
+      handleChoosePaymentMethod,
+      removeCartOnDeliveryConfirm
     }}>
       {children}
     </CartContext.Provider>

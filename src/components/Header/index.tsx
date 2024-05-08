@@ -1,10 +1,10 @@
-import { NavLink } from 'react-router-dom'
+import { useContext, useEffect } from 'react'
+import { NavLink, useLocation } from 'react-router-dom'
 import cartIcon from '../../assets/cartIcon.svg'
 import localeIcon from '../../assets/localeIcon.svg'
 import logoIcon from '../../assets/logo.svg'
-import { CartIcon, CartIconContainer, HeaderContainer, ItemCount, LocaleContainer, NavContainer } from "./styles"
-import { useContext, useEffect } from 'react'
 import { CartContext } from '../../context/CartContext'
+import { CartIcon, CartIconContainer, HeaderContainer, ItemCount, LocaleContainer, NavContainer } from "./styles"
 
 export const Header = () => {
 
@@ -16,6 +16,8 @@ export const Header = () => {
       handleSetCart(JSON.parse(localStorageCart))
     }
   }, [])
+
+  const route = useLocation()
 
   return (
     <HeaderContainer>
@@ -30,7 +32,7 @@ export const Header = () => {
         <CartIconContainer>
           <NavLink to={'/cart'}>
             <CartIcon src={cartIcon} alt="Cart" />
-            <ItemCount>{cart.items.length}</ItemCount>
+            {route.pathname !== '/finalize' && <ItemCount>{cart.items.length}</ItemCount>}
           </NavLink>
         </CartIconContainer>
       </NavContainer>
