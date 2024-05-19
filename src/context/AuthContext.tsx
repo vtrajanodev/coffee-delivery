@@ -1,17 +1,18 @@
 
 import { FacebookAuthProvider, GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { ReactNode, createContext, useEffect, useState } from "react";
 import { User } from "../@types/user.type";
 import { auth, db } from "../services/firebase";
-import { addDoc, collection } from "firebase/firestore";
 
 interface AuthContextProps {
   user: User | undefined;
+  authenticationErrorMessage: string;
   signInWithGoogleAccount: () => void;
   signInWithFacebookAccount: () => void;
   SignOut: () => Promise<void>;
   handleRegisterUser: (email: string, password: string, name: string) => Promise<void>;
-  signInWithAccountInfo: (email: string, password: string) => void;
+  signInWithAccountInfo: (email: string, password: string) => Promise<void>;
 }
 
 interface AuthContextProviderProps {
@@ -23,15 +24,22 @@ export const AuthContext = createContext({} as AuthContextProps)
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
 
   const [user, setUser] = useState<User | undefined>()
+  const [authenticationErrorMessage, setAuthenticationErrorMessage] = useState<string>('')
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+
+      const isPasswordProvider = user?.providerData.some((item) => item.providerId === 'password')
+
       if (user) {
         const { displayName, photoURL, uid, email } = user
 
+        const docRef = doc(db, "users", uid)
+        const docSnap = await getDoc(docRef);
+
         setUser({
           uid: uid,
-          name: displayName,
+          name: isPasswordProvider ? docSnap.data()?.name : displayName,
           photoURL: photoURL,
           email: email
         })
@@ -50,42 +58,53 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
 
       const { photoURL, uid, email } = userCredential.user
 
-      setUser({
+      const userInfo = {
         uid,
         name,
         email,
-        photoURL
-      })
+        photoURL,
+        password
+      }
+
+      setUser(userInfo)
 
       try {
-        
-        const docRef = await addDoc(collection(db, "users"), {
-          uid,
-          name,
-          email,
-          photoURL
-        });
-
-        console.log("Document written with ID: ", docRef.id);
+        const usersRef = doc(db, "users", uid)
+        await setDoc(usersRef, userInfo);
       } catch (e) {
         console.error("Error adding document: ", e);
       }
     }
   }
 
-  const signInWithAccountInfo = async (email: string, password: string) => {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password)
+  const signInWithAccountInfo = async (emailInput: string, password: string) => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, emailInput, password)
 
-    if (userCredential.user) {
+      const isPasswordProvider = userCredential.user.providerData.some((item) => item.providerId === 'password')
 
-      const { displayName, photoURL, uid, email } = userCredential.user
+      if (userCredential.user && isPasswordProvider) {
 
-      setUser({
-        uid,
-        name: displayName,
-        email,
-        photoURL
-      })
+        const { photoURL, uid, email } = userCredential.user
+
+        const docRef = doc(db, "users", uid)
+        const docSnap = await getDoc(docRef);
+        console.log(docSnap.data())
+
+        if (docSnap.exists()) {
+          setUser({
+            uid,
+            name: docSnap.data().name,
+            email,
+            photoURL
+          })
+        }
+      }
+    }
+    catch (e: any) {
+      if (e.code.includes('invalid-credential')) {
+        setAuthenticationErrorMessage('Campo login e/ou senha inválido')
+      }
     }
   }
 
@@ -93,6 +112,9 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     const provider = new GoogleAuthProvider();
     const result = await signInWithPopup(auth, provider)
     GoogleAuthProvider.credentialFromResult(result)
+
+    console.log(result.user)
+
 
     const { displayName, photoURL, uid, email } = result.user
 
@@ -137,7 +159,8 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
       SignOut,
       handleRegisterUser,
       signInWithAccountInfo,
-      user
+      user,
+      authenticationErrorMessage
     }}>
       {children}
     </AuthContext.Provider>

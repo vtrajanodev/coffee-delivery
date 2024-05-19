@@ -47,6 +47,7 @@ export const FormContainer = styled.div`
     button {
       cursor: pointer;
       margin-top: 12px;
+      margin-bottom: 6px;
       background-color: ${(props) => props.theme["yellow-dark"]};
       outline: none;
       border: none;
@@ -62,6 +63,11 @@ export const FormContainer = styled.div`
         background-color: white;
         color: #000;
       }
+    }
+
+    div {
+      color: red;
+      text-align: center;
     }
   }
 `;

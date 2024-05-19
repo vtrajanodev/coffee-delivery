@@ -25,7 +25,7 @@ type SignUpFormType = typeof SIGN_UP_FORM_INITIAL_VALUES;
 
 export const SignUp = () => {
 
-  const { handleRegisterUser } = useContext(AuthContext)
+  const { handleRegisterUser, signInWithAccountInfo } = useContext(AuthContext)
   const navigate = useNavigate()
 
   return (
@@ -41,6 +41,7 @@ export const SignUp = () => {
           onSubmit={async (values) => {
             const { email, password, name } = values
             await handleRegisterUser(email, password, name)
+            await signInWithAccountInfo(email, password)
             navigate('/home')
           }}
         >{({ errors, touched }) => (

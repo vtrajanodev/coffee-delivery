@@ -26,7 +26,7 @@ export type SignInFormType = typeof SignInInitialFormValues
 export const SignIn = () => {
 
 
-  const { user, signInWithGoogleAccount, signInWithFacebookAccount, signInWithAccountInfo } = useContext(AuthContext)
+  const { user, signInWithGoogleAccount, signInWithFacebookAccount, signInWithAccountInfo, authenticationErrorMessage } = useContext(AuthContext)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -68,9 +68,10 @@ export const SignIn = () => {
               </PasswordContainer>
 
               <button type="submit">Acessar cafeteria</button>
+              { authenticationErrorMessage && <div>{authenticationErrorMessage}</div> }
             </Form>
           )}
-        </Formik>
+        </Formik> 
 
         <FooterContainer>
           <div className="signin-info">
