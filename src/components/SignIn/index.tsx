@@ -26,7 +26,7 @@ export type SignInFormType = typeof SignInInitialFormValues
 export const SignIn = () => {
 
 
-  const { user, signInWithGoogleAccount, signInWithFacebookAccount } = useContext(AuthContext)
+  const { user, signInWithGoogleAccount, signInWithFacebookAccount, signInWithAccountInfo } = useContext(AuthContext)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -55,8 +55,7 @@ export const SignIn = () => {
           initialValues={SignInInitialFormValues}
           validationSchema={SIGN_UP_FORM_VALIDATION_SCHEMA}
           onSubmit={async (values) => {
-            // await handleLogin(values)
-            console.log(values)
+            signInWithAccountInfo(values.email, values.password)
           }}
         >
           {({ errors, touched }) => (

@@ -81,6 +81,8 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
       totalItemsValue: totalItemsValue,
       items: isCoffeeOnCart(coffee) ? [...state.items] : [...state.items, coffee]
     }))
+
+    localStorage.setItem('cart', JSON.stringify(cart))
   }
 
   const handleRemoveCoffeeFromCart = (coffee: Coffee) => {
@@ -108,6 +110,8 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
         }
       })]
     }))
+
+    localStorage.setItem('cart', JSON.stringify(cart))
   }
 
   const handleRemoveCoffeeQuantityOnCart = (coffee: Coffee) => {

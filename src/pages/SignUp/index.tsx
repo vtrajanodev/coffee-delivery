@@ -1,6 +1,8 @@
 import { Field, Form, Formik } from "formik"
+import { useContext } from "react"
 import { Link } from "react-router-dom"
 import * as Yup from 'yup'
+import { AuthContext } from "../../context/AuthContext"
 import { FooterContainer, FormContainer, SignUpContainer } from "./styles"
 
 const SIGN_UP_FORM_INITIAL_VALUES = {
@@ -19,10 +21,12 @@ const SIGN_UP_FORM_VALIDATION_SCHEMA = Yup.object().shape({
     .required('Senha é um campo obrigatório')
 })
 
-
 type SignUpFormType = typeof SIGN_UP_FORM_INITIAL_VALUES;
 
 export const SignUp = () => {
+
+  const { handleRegisterUser } = useContext(AuthContext)
+
   return (
     <SignUpContainer>
       <FormContainer>
@@ -34,7 +38,8 @@ export const SignUp = () => {
           initialValues={SIGN_UP_FORM_INITIAL_VALUES}
           validationSchema={SIGN_UP_FORM_VALIDATION_SCHEMA}
           onSubmit={values => {
-            console.log(values)
+            const { email, password, name } = values
+            handleRegisterUser(email, password, name)
           }}
         >{({ errors, touched }) => (
           <Form>
@@ -59,7 +64,7 @@ export const SignUp = () => {
 
         <FooterContainer>
           <span>Já possui uma conta? </span>
-         <Link to="/login">Entre agora mesmo</Link>
+          <Link to="/login">Entre agora mesmo</Link>
         </FooterContainer>
 
       </FormContainer>

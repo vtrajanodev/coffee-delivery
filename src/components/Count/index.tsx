@@ -19,10 +19,6 @@ export const Count = ({ coffee }: CountProps) => {
     if (localStorageCoffeeList) handleSetCoffeeList(JSON.parse(localStorageCoffeeList))
   }, [])
 
-  const setLocalStorageItem = (value: Coffee[]) => {
-    localStorage.setItem('coffeeList', JSON.stringify(value))
-  }
-
   const handleAddCoffeeQuantity = () => {
     const updatedCoffeeList = coffeeList.map((item: Coffee) => {
       if (item.id === coffee.id) {
@@ -35,7 +31,6 @@ export const Count = ({ coffee }: CountProps) => {
     handleAddCoffeeToCart(coffee)
     handleAddCoffeeQuantityOnCart(coffee)
     handleSetCoffeeList(updatedCoffeeList)
-    setLocalStorageItem(updatedCoffeeList)
   }
 
   const handleRemoveCoffeeQuantity = () => {
@@ -55,7 +50,6 @@ export const Count = ({ coffee }: CountProps) => {
 
     handleRemoveCoffeeQuantityOnCart(coffee)
     handleSetCoffeeList(updatedCoffeeList)
-    setLocalStorageItem(updatedCoffeeList)
   }
 
   return (

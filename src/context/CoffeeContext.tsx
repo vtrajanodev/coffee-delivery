@@ -35,6 +35,7 @@ export const CoffeeContextProvider = ({ children }: CartContextProviderProps) =>
 
   const handleSetCoffeeList = (coffees: Coffee[]) => {
     setCoffeeList(coffees)
+    localStorage.setItem('coffeeList', JSON.stringify(coffees))
   }
 
   const formatNumberToCurrency = (numero: number) => {
