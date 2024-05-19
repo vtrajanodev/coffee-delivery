@@ -10,7 +10,7 @@ interface AuthContextProps {
   signInWithGoogleAccount: () => void;
   signInWithFacebookAccount: () => void;
   SignOut: () => Promise<void>;
-  handleRegisterUser: (email: string, password: string, name: string) => void;
+  handleRegisterUser: (email: string, password: string, name: string) => Promise<void>;
   signInWithAccountInfo: (email: string, password: string) => void;
 }
 
@@ -58,6 +58,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
       })
 
       try {
+        
         const docRef = await addDoc(collection(db, "users"), {
           uid,
           name,

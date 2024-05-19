@@ -1,6 +1,6 @@
 import { Field, Form, Formik } from "formik"
 import { useContext } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import * as Yup from 'yup'
 import { AuthContext } from "../../context/AuthContext"
 import { FooterContainer, FormContainer, SignUpContainer } from "./styles"
@@ -26,6 +26,7 @@ type SignUpFormType = typeof SIGN_UP_FORM_INITIAL_VALUES;
 export const SignUp = () => {
 
   const { handleRegisterUser } = useContext(AuthContext)
+  const navigate = useNavigate()
 
   return (
     <SignUpContainer>
@@ -37,9 +38,10 @@ export const SignUp = () => {
         <Formik<SignUpFormType>
           initialValues={SIGN_UP_FORM_INITIAL_VALUES}
           validationSchema={SIGN_UP_FORM_VALIDATION_SCHEMA}
-          onSubmit={values => {
+          onSubmit={async (values) => {
             const { email, password, name } = values
-            handleRegisterUser(email, password, name)
+            await handleRegisterUser(email, password, name)
+            navigate('/home')
           }}
         >{({ errors, touched }) => (
           <Form>
