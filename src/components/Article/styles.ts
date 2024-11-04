@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
 export const IntroContainer = styled.article`
+  margin-top: 1rem;
   display: flex;
   justify-content: space-around;
   width: 100%;
-  padding: 6.25rem 4rem;
+  padding: 6.25rem 4rem 4rem 4rem;
 `
 
 export const IntroTextContainer = styled.div`
