@@ -21,7 +21,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import * as Yup from 'yup';
 
-const AddressFormSchema = Yup.object().shape({
+const ADDRESS_FORM_VALIDATION = Yup.object().shape({
   cep: Yup.string()
     .required('Cep é obrigatório'),
   street: Yup.string()
@@ -76,7 +76,7 @@ export const Address = () => {
           <FormFieldsContainer>
             <Formik
               initialValues={INTIAL_FORM_VALUES}
-              validationSchema={AddressFormSchema}
+              validationSchema={ADDRESS_FORM_VALIDATION}
               onSubmit={values => {
                 const updatedCartWithAddress: Cart = {
                   ...cart,

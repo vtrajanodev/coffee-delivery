@@ -10,6 +10,7 @@ interface CoffeeContextType {
   coffeeList: Coffee[];
   handleSetCoffeeList: (coffees: Coffee[]) => void,
   formatNumberToCurrency: (numero: number) => string,
+  getCoffeeList: () => void
 }
 
 export const CoffeeContext = createContext({} as CoffeeContextType)
@@ -27,13 +28,6 @@ export const CoffeeContextProvider = ({ children }: CartContextProviderProps) =>
     }
   }, [])
 
-  useEffect(() => {
-    if (coffeeList.length) {
-      localStorage.setItem('coffeeList', JSON.stringify(coffeeList))
-    }
-  }, [coffeeList])
-
-
   const getCoffeeList = async () => {
     const { data } = await axios.get<Coffee[]>('http://localhost:3000/coffees')
     setCoffeeList(data)
@@ -41,6 +35,7 @@ export const CoffeeContextProvider = ({ children }: CartContextProviderProps) =>
 
   const handleSetCoffeeList = (coffees: Coffee[]) => {
     setCoffeeList(coffees)
+    localStorage.setItem('coffeeList', JSON.stringify(coffees))
   }
 
   const formatNumberToCurrency = (numero: number) => {
@@ -52,7 +47,8 @@ export const CoffeeContextProvider = ({ children }: CartContextProviderProps) =>
     <CoffeeContext.Provider value={{
       coffeeList,
       handleSetCoffeeList,
-      formatNumberToCurrency
+      formatNumberToCurrency,
+      getCoffeeList
     }}>
       {children}
     </CoffeeContext.Provider>

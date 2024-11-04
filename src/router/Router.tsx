@@ -3,11 +3,17 @@ import { DefaultLayout } from "../layouts/DefaultLayout"
 import { Cart } from "../pages/Cart"
 import { Finalize } from "../pages/Finalize"
 import { Home } from "../pages/Home"
+import { Login } from "../pages/Login"
+import { SignUp } from "../pages/SignUp"
 
 const router = createBrowserRouter([
   {
     path: '/login',
-    element: <h1>login</h1>
+    element: <Login />
+  },
+  {
+    path: '/signup',
+    element: <SignUp />
   },
   {
     path: '/',

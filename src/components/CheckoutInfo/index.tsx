@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import currencyIcon from '../../assets/currencyIcon.svg'
 import localeIcon2 from '../../assets/localeIcon2.svg'
 import timeIcon2 from '../../assets/timerIcon2.svg'
@@ -7,7 +7,11 @@ import { CheckoutInfoContainer, DeliveryInfoContainer, InfoItemsContainer } from
 
 export const CheckoutInfo = () => {
 
-  const { cart } = useContext(CartContext)
+  const { cart, removeCartOnDeliveryConfirm } = useContext(CartContext)
+
+  useEffect(() => {
+    removeCartOnDeliveryConfirm();
+  }, [])
 
   const paymentMethodLabel = (paymentMethod: string) => {
     switch (paymentMethod) {

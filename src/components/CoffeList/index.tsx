@@ -1,16 +1,20 @@
 import { useContext, useEffect } from "react"
 import { Coffee } from "../../@types/coffee.type"
+import { CoffeeContext } from "../../context/CoffeeContext"
 import { CoffeeCard } from "../CoffeeCard"
 import { CoffeeListContainer, CoffeeListTitleContainer } from "./styles"
-import { CoffeeContext } from "../../context/CoffeeContext"
 
 export const CoffeeList = () => {
 
-  const { coffeeList, handleSetCoffeeList } = useContext(CoffeeContext)
+  const { coffeeList, handleSetCoffeeList, getCoffeeList } = useContext(CoffeeContext)
 
   useEffect(() => {
     const localStorageCoffeeList = localStorage.getItem('coffeeList')
-    if (localStorageCoffeeList) handleSetCoffeeList(JSON.parse(localStorageCoffeeList))
+    if (localStorageCoffeeList?.length) {
+      handleSetCoffeeList(JSON.parse(localStorageCoffeeList))
+    } else {
+      getCoffeeList()
+    }
   }, [])
 
   return (
@@ -20,7 +24,7 @@ export const CoffeeList = () => {
       <CoffeeListContainer>
         {
           coffeeList && coffeeList.map((coffee: Coffee) => (
-            <CoffeeCard key={coffee.id} coffee={coffee}/>
+            <CoffeeCard key={coffee.id} coffee={coffee} />
           ))
         }
       </CoffeeListContainer>
