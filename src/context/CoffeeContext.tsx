@@ -30,7 +30,7 @@ export const CoffeeContextProvider = ({ children }: CartContextProviderProps) =>
 
   const getCoffeeList = async () => {
     try {
-      const { data } = await axios.get('https://coffee-delivery-lime-one.vercel.app/api/coffees');
+      const { data } = await axios.get('https://http-coffee-backend.vercel.app/api/coffees');
       if (Array.isArray(data.coffees)) {
         setCoffeeList(data.coffees);
       } else {
