@@ -1,6 +1,6 @@
 // api/coffees.js
 export default function handler(req, res) {
-  const coffees = [ 
+  const coffees = [
     {
       "id": 1,
       "imgSrc": "https://i.postimg.cc/MZD0Zr8Q/coffee-1.png",
@@ -180,6 +180,15 @@ export default function handler(req, res) {
       "isOnCart": false
     }
   ];
+
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
 
   res.status(200).json({ coffees });
 }
