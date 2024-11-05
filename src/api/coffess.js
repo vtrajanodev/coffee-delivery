@@ -1,6 +1,6 @@
 // api/coffees.js
 export default function handler(req, res) {
-  const coffees = [
+  const coffees = [ 
     {
       "id": 1,
       "imgSrc": "https://i.postimg.cc/MZD0Zr8Q/coffee-1.png",

@@ -20,7 +20,7 @@ export const Count = ({ coffee }: CountProps) => {
   }, [])
 
   const handleAddCoffeeQuantity = () => {
-    const updatedCoffeeList = coffeeList.map((item: Coffee) => {
+    const updatedCoffeeList = coffeeList?.map((item: Coffee) => {
       if (item.id === coffee.id) {
         return { ...item, quantity: item.quantity + 1 }
       } else {
@@ -35,7 +35,7 @@ export const Count = ({ coffee }: CountProps) => {
 
   const handleRemoveCoffeeQuantity = () => {
 
-    const updatedCoffeeList = coffeeList.map((item: Coffee) => {
+    const updatedCoffeeList = coffeeList?.map((item: Coffee) => {
       const hasOneQuantity = item.quantity === 1
 
       if (item.quantity === 0) return item;

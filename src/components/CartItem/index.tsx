@@ -18,7 +18,7 @@ export const CartItem = ({ coffee }: CartItemProps) => {
 
 
   const setQuantityToZero = () => {
-    const updatedList = coffeeList.map((item) => {
+    const updatedList = coffeeList?.map((item) => {
       if (item.id === coffee.id) {
         return { ...item, quantity: 0 }
       } else {

@@ -25,7 +25,7 @@ export const CartData = () => {
       <CartDataTitleContainer>Cafés selecionados</CartDataTitleContainer>
 
       <CartContainer>
-        {cart.items.length ? cart.items.map((coffee: Coffee) => (
+        {cart.items.length ? cart.items?.map((coffee: Coffee) => (
           <div key={coffee.id}>
             <CartItem coffee={coffee} />
             <hr />

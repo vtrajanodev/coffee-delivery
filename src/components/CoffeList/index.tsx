@@ -23,7 +23,7 @@ export const CoffeeList = () => {
 
       <CoffeeListContainer>
         {
-          coffeeList && coffeeList.map((coffee: Coffee) => (
+          coffeeList && coffeeList?.map((coffee: Coffee) => (
             <CoffeeCard key={coffee.id} coffee={coffee} />
           ))
         }
