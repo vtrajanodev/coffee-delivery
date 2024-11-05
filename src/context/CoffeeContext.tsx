@@ -29,9 +29,17 @@ export const CoffeeContextProvider = ({ children }: CartContextProviderProps) =>
   }, [])
 
   const getCoffeeList = async () => {
-    const { data } = await axios.get<Coffee[]>('https://your-vercel-project.vercel.app/api/coffees')
-    setCoffeeList(data)
-  }
+    try {
+      const { data } = await axios.get('https://coffee-delivery-lime-one.vercel.app/api/coffees');
+      if (Array.isArray(data.coffees)) {
+        setCoffeeList(data.coffees);
+      } else {
+        console.error('Erro: resposta da API não contém um array de cafés');
+      }
+    } catch (error) {
+      console.error('Erro ao buscar cafés:', error);
+    }
+  };
 
   const handleSetCoffeeList = (coffees: Coffee[]) => {
     setCoffeeList(coffees)
